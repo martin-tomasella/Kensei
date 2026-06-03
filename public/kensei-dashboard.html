@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kensei — Command Center</title>
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Share+Tech+Mono&family=Noto+Sans+JP:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#080c10;--bg2:#0d1117;--bg3:#111820;--card:#0f1620;--border:rgba(120,160,200,0.12);--border2:rgba(120,160,200,0.22);--silver3:#e8eef4;--accent:#4a8ab8;--accent2:#6aaad8;--warn:#c89040;--ok2:#50a878;--danger:#c84840;--text:#d0dce8;--text2:#8898a8;--text3:#556070;--mono:"Share Tech Mono",monospace;--head:"Rajdhani",sans-serif}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--text);font-family:var(--head);font-size:15px;min-height:100vh}
+.nav{display:flex;align-items:center;background:var(--bg2);border-bottom:1px solid var(--border2);padding:0 24px;height:60px;position:sticky;top:0;z-index:100}
+.nav-brand{display:flex;flex-direction:column;margin-right:36px}
+.nav-brand .k{font-size:20px;font-weight:700;letter-spacing:4px;color:var(--silver3)}
+.nav-brand .sub{font-family:var(--mono);font-size:9px;color:var(--text3);letter-spacing:2px}
+.nav-tabs{display:flex;gap:2px;flex:1}
+.nav-tab{padding:0 16px;height:60px;display:flex;align-items:center;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--text3);cursor:pointer;border-bottom:2px solid transparent;transition:all 0.2s;margin-bottom:-1px}
+.nav-tab:hover{color:#c8d8e8}
+.nav-tab.active{color:var(--accent2);border-bottom-color:var(--accent2)}
+.pulse-dot{width:8px;height:8px;border-radius:50%;background:var(--ok2);animation:pulse 2s infinite;margin-left:auto;margin-right:8px}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:0.4}}
+.pulse-label{font-family:var(--mono);font-size:10px;color:var(--ok2)}
+.layout{display:grid;grid-template-columns:220px 1fr;min-height:calc(100vh - 60px)}
+.sidebar{background:var(--bg2);border-right:1px solid var(--border);padding:16px 0;overflow-y:auto}
+.sidebar-section{margin-bottom:20px}
+.sidebar-label{font-family:var(--mono);font-size:9px;letter-spacing:3px;color:var(--text3);padding:0 16px 6px;text-transform:uppercase}
+.si{display:flex;align-items:center;gap:8px;padding:8px 16px;cursor:pointer;transition:all 0.15s;border-left:2px solid transparent;font-size:11px;font-weight:600;letter-spacing:1px;color:var(--text2)}
+.si:hover{background:rgba(74,138,184,0.05);color:#c8d8e8}
+.si.active{background:rgba(74,138,184,0.08);color:var(--accent2);border-left-color:var(--accent2)}
+.dot{width:7px;height:7px;border-radius:50%;flex-shrink:0}
+.badge{margin-left:auto;font-family:var(--mono);font-size:9px;padding:2px 5px;border-radius:3px}
+.bok{background:rgba(80,168,120,0.15);color:var(--ok2)}
+.bwarn{background:rgba(200,144,64,0.15);color:var(--warn)}
+.bnum{background:rgba(74,138,184,0.15);color:var(--accent2)}
+.main{padding:20px 24px;overflow-y:auto;background:var(--bg)}
+.sh{display:flex;align-items:center;gap:10px;margin-bottom:14px;margin-top:4px}
+.st{font-size:12px;font-weight:700;letter-spacing:3px;color:#c8d8e8;text-transform:uppercase}
+.sk{font-family:"Noto Sans JP",sans-serif;font-size:11px;color:var(--text3)}
+.sl{flex:1;height:1px;background:linear-gradient(90deg,var(--border2),transparent)}
+.sg{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-bottom:22px}
+.sc{background:var(--card);border:1px solid var(--border);border-radius:5px;padding:11px 13px;position:relative;overflow:hidden}
+.sc::before{content:"";position:absolute;top:0;left:0;right:0;height:2px}
+.sc.ok::before{background:var(--ok2)}
+.sc.warn::before{background:var(--warn)}
+.scl{font-family:var(--mono);font-size:9px;letter-spacing:2px;color:var(--text3);margin-bottom:5px}
+.scv{font-size:19px;font-weight:700;color:var(--silver3);line-height:1;margin-bottom:2px}
+.scv.ok{color:var(--ok2)}
+.scv.warn{color:var(--warn)}
+.scs{font-family:var(--mono);font-size:9px;color:var(--text3)}
+.svgg{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:8px;margin-bottom:22px}
+.svc{background:var(--card);border:1px solid var(--border);border-radius:5px;padding:9px 11px;display:flex;align-items:center;gap:9px}
+.sdot{width:7px;height:7px;border-radius:50%;flex-shrink:0}
+.sdot.ok{background:var(--ok2);box-shadow:0 0 5px var(--ok2)}
+.sdot.warn{background:var(--warn);box-shadow:0 0 5px var(--warn)}
+.sn{font-size:10px;font-weight:700;letter-spacing:1px;color:#c8d8e8}
+.sd{font-family:var(--mono);font-size:9px;color:var(--text3);margin-top:1px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.sp{font-family:var(--mono);font-size:9px;color:var(--text3);flex-shrink:0}
+.ag{display:grid;grid-template-columns:repeat(auto-fit,minmax(165px,1fr));gap:10px;margin-bottom:22px}
+.ac{background:var(--card);border:1px solid var(--border);border-radius:5px;padding:13px;cursor:pointer;transition:all 0.2s}
+.ac:hover{border-color:var(--border2);transform:translateY(-1px)}
+.av{width:38px;height:38px;border-radius:5px;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;margin-bottom:8px;font-family:var(--mono)}
+.av-pl{background:rgba(74,138,184,0.15);color:var(--accent2);border:1px solid rgba(74,138,184,0.3)}
+.av-be{background:rgba(80,168,120,0.15);color:var(--ok2);border:1px solid rgba(80,168,120,0.3)}
+.av-fe{background:rgba(160,100,200,0.15);color:#a878d8;border:1px solid rgba(160,100,200,0.3)}
+.av-qa{background:rgba(200,144,64,0.15);color:var(--warn);border:1px solid rgba(200,144,64,0.3)}
+.av-rv{background:rgba(168,144,96,0.15);color:#c8b080;border:1px solid rgba(168,144,96,0.3)}
+.an{font-size:12px;font-weight:700;letter-spacing:1px;color:var(--silver3);margin-bottom:1px}
+.ar{font-family:var(--mono);font-size:9px;color:var(--text3);margin-bottom:6px;letter-spacing:1px}
+.al{display:flex;gap:3px;margin-bottom:6px}
+.lp{width:14px;height:3px;border-radius:2px;background:var(--border2)}
+.lp.f{background:var(--accent2)}
+.at{font-family:var(--mono);font-size:9px;color:var(--text2);line-height:1.5}
+.jt{width:100%;border-collapse:collapse;margin-bottom:22px;font-size:11px}
+.jt th{font-family:var(--mono);font-size:9px;letter-spacing:2px;color:var(--text3);text-align:left;padding:6px 9px;border-bottom:1px solid var(--border2);text-transform:uppercase}
+.jt td{padding:8px 9px;border-bottom:1px solid var(--border);vertical-align:middle}
+.jt tr:hover td{background:rgba(74,138,184,0.03)}
+.jid{font-family:var(--mono);font-size:9px;color:var(--text3)}
+.jz{font-weight:700;letter-spacing:1px}
+.jz-z{color:#78c8a0}
+.jz-t{color:var(--accent2)}
+.jz-k{color:var(--accent2)}
+.jtask{color:var(--text2);font-size:10px;max-width:230px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:block}
+.jb{display:inline-flex;align-items:center;gap:4px;padding:2px 6px;border-radius:3px;font-family:var(--mono);font-size:9px;letter-spacing:1px}
+.jb-done{background:rgba(80,168,120,0.15);color:var(--ok2)}
+.jb-run{background:rgba(74,138,184,0.15);color:var(--accent2)}
+.jc{font-family:var(--mono);font-size:9px;color:var(--accent2);cursor:pointer}
+.jc:hover{text-decoration:underline}
+.rb{background:rgba(200,72,64,0.08);border:1px solid rgba(200,72,64,0.2);color:var(--danger);font-family:var(--mono);font-size:9px;padding:2px 6px;border-radius:3px;cursor:pointer}
+.rb:hover{background:rgba(200,72,64,0.18)}
+.gp{background:var(--card);border:1px solid var(--border);border-radius:5px;padding:13px;margin-bottom:22px}
+.gr{display:flex;align-items:center;gap:9px;padding:6px 0;border-bottom:1px solid var(--border);font-size:10px}
+.gr:last-child{border-bottom:none}
+.gpr{font-weight:700;font-size:10px;letter-spacing:1px;width:75px;flex-shrink:0}
+.gh{font-family:var(--mono);font-size:9px;color:var(--accent2);width:60px;flex-shrink:0;cursor:pointer}
+.gh:hover{text-decoration:underline}
+.gm{font-size:9px;color:var(--text2);flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.gt{font-family:var(--mono);font-size:9px;color:var(--text3);width:65px;text-align:right;flex-shrink:0}
+.gst{font-family:var(--mono);font-size:9px;padding:2px 5px;border-radius:3px;flex-shrink:0}
+.gs-ok{background:rgba(80,168,120,0.15);color:var(--ok2)}
+.gs-p{background:rgba(200,144,64,0.15);color:var(--warn)}
+.ug{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:22px}
+.uc{background:var(--card);border:1px solid var(--border);border-radius:5px;padding:13px}
+.ut{font-family:var(--mono);font-size:9px;letter-spacing:2px;color:var(--text3);margin-bottom:10px;text-transform:uppercase}
+.ub{margin-bottom:8px}
+.ubl{display:flex;justify-content:space-between;margin-bottom:3px;font-size:10px}
+.ubl span:first-child{color:var(--text2)}
+.ubl span:last-child{font-family:var(--mono);color:#c8d8e8}
+.ubr{height:5px;background:var(--border2);border-radius:3px;overflow:hidden}
+.ubf{height:100%;border-radius:3px}
+.f-ok{background:var(--ok2)}
+.f-warn{background:var(--warn)}
+.f-acc{background:var(--accent2)}
+.tp{background:var(--card);border:1px solid var(--border);border-radius:5px;padding:16px;margin-bottom:22px}
+.flabel{font-family:var(--mono);font-size:9px;letter-spacing:2px;color:var(--text3);margin-bottom:5px;text-transform:uppercase;display:block}
+select,input,textarea{background:#111820;border:1px solid var(--border2);color:var(--text);font-family:var(--head);font-size:13px;padding:7px 10px;border-radius:4px;outline:none;transition:border-color 0.2s;width:100%}
+select:focus,input:focus,textarea:focus{border-color:var(--accent)}
+textarea{resize:vertical;min-height:52px}
+.bsend{background:rgba(74,138,184,0.12);border:1px solid var(--accent);color:var(--accent2);font-family:var(--head);font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:8px 16px;border-radius:4px;cursor:pointer;transition:all 0.2s;white-space:nowrap}
+.bsend:hover{background:rgba(74,138,184,0.22)}
+</style>
+</head>
+<body>
+<nav class="nav">
+  <div class="nav-brand">
+    <span class="k">KENSEI</span>
+    <span class="sub">剣聖 · TECHNOLOGY HOLDING</span>
+  </div>
+  <div class="nav-tabs">
+    <div class="nav-tab active" onclick="showTab('cmd')">Command</div>
+    <div class="nav-tab" onclick="showTab('agt')">Agentes</div>
+    <div class="nav-tab" onclick="showTab('prj')">Proyectos</div>
+    <div class="nav-tab" onclick="showTab('uso')">Consumo</div>
+  </div>
+  <div class="pulse-dot"></div>
+  <span class="pulse-label" id="ulbl">ONLINE</span>
+</nav>
+<div class="layout">
+<aside class="sidebar">
+  <div class="sidebar-section">
+    <div class="sidebar-label">Proyectos</div>
+    <div class="si active"><span class="dot" style="background:#78c8a0"></span>Zebrano<span class="badge bwarn">60%</span></div>
+    <div class="si"><span class="dot" style="background:#4a8ab8"></span>Theron<span class="badge bok">95%</span></div>
+    <div class="si"><span class="dot" style="background:#c8a060"></span>VETCOM<span class="badge bnum">0%</span></div>
+    <div class="si"><span class="dot" style="background:#a878d8"></span>Inteltech<span class="badge bnum">0%</span></div>
+    <div class="si"><span class="dot" style="background:#4a8ab8"></span>Kensei<span class="badge bok">●</span></div>
+  </div>
+  <div class="sidebar-section">
+    <div class="sidebar-label">Servicios</div>
+    <div class="si"><span class="dot" style="background:#50a878"></span>n8n<span class="badge bok">UP</span></div>
+    <div class="si"><span class="dot" style="background:#50a878"></span>Supabase<span class="badge bok">UP</span></div>
+    <div class="si"><span class="dot" style="background:#50a878"></span>Vercel<span class="badge bok">UP</span></div>
+    <div class="si"><span class="dot" style="background:#c89040"></span>VPS Disco<span class="badge bwarn">53%</span></div>
+    <div class="si"><span class="dot" style="background:#50a878"></span>Anthropic API<span class="badge bok">OK</span></div>
+  </div>
+  <div class="sidebar-section">
+    <div class="sidebar-label">Agentes</div>
+    <div class="si"><span style="font-family:monospace;font-size:9px;color:#4a8ab8;width:20px;flex-shrink:0">PL</span>Planner<span class="badge bok">IDLE</span></div>
+    <div class="si"><span style="font-family:monospace;font-size:9px;color:#50a878;width:20px;flex-shrink:0">BE</span>Backend<span class="badge bok">IDLE</span></div>
+    <div class="si"><span style="font-family:monospace;font-size:9px;color:#a878d8;width:20px;flex-shrink:0">FE</span>Frontend<span class="badge bok">IDLE</span></div>
+    <div class="si"><span style="font-family:monospace;font-size:9px;color:#c89040;width:20px;flex-shrink:0">QA</span>QA<span class="badge bok">IDLE</span></div>
+    <div class="si"><span style="font-family:monospace;font-size:9px;color:#c8b080;width:20px;flex-shrink:0">RV</span>Reviewer<span class="badge bok">IDLE</span></div>
+  </div>
+</aside>
+<main class="main">
+
+<div id="view-cmd">
+  <div class="sh"><span class="st">Estado del Sistema</span><span class="sk">状態</span><div class="sl"></div></div>
+  <div class="sg">
+    <div class="sc ok"><div class="scl">VPS UPTIME</div><div class="scv ok" id="uval">—</div><div class="scs">srv1009920 · Brazil</div></div>
+    <div class="sc warn"><div class="scl">DISCO VPS</div><div class="scv warn">53%</div><div class="scs">51G / 96G</div></div>
+    <div class="sc ok"><div class="scl">RAM VPS</div><div class="scv ok">21%</div><div class="scs">memoria libre</div></div>
+    <div class="sc ok"><div class="scl">JOBS HOY</div><div class="scv" id="jcount">1</div><div class="scs">0 error · 0 cola</div></div>
+    <div class="sc warn"><div class="scl">TOKENS HOY</div><div class="scv warn">~45k</div><div class="scs">estimado</div></div>
+    <div class="sc ok"><div class="scl">API STATUS</div><div class="scv ok">OK</div><div class="scs">Anthropic · activa</div></div>
+  </div>
+
+  <div class="sh"><span class="st">Servicios</span><span class="sk">サービス</span><div class="sl"></div></div>
+  <div class="svgg">
+    <div class="svc"><div class="sdot ok"></div><div style="flex:1;min-width:0"><div class="sn">N8N</div><div class="sd">n8n-n8n.z8ixjp.easypanel.host</div></div><div class="sp">12ms</div></div>
+    <div class="svc"><div class="sdot ok"></div><div style="flex:1;min-width:0"><div class="sn">SUPABASE · ZEBRANO</div><div class="sd">xsciujuvkbubnhhnpcix</div></div><div class="sp">38ms</div></div>
+    <div class="svc"><div class="sdot ok"></div><div style="flex:1;min-width:0"><div class="sn">SUPABASE · ALFRED</div><div class="sd">vkzonjohezyumxxqddux</div></div><div class="sp">42ms</div></div>
+    <div class="svc"><div class="sdot ok"></div><div style="flex:1;min-width:0"><div class="sn">VERCEL · ZEBRANO</div><div class="sd">zebrano-web.vercel.app</div></div><div class="sp">28ms</div></div>
+    <div class="svc"><div class="sdot ok"></div><div style="flex:1;min-width:0"><div class="sn">ANTHROPIC API</div><div class="sd">Orquestador-Kensei key activa</div></div><div class="sp">—</div></div>
+    <div class="svc"><div class="sdot warn"></div><div style="flex:1;min-width:0"><div class="sn">TIKTOK</div><div class="sd">@zebrano.ma · sandbox mode</div></div><div class="sp">—</div></div>
+  </div>
+
+  <div class="sh"><span class="st">Nueva Misión</span><span class="sk">任務</span><div class="sl"></div></div>
+  <div class="tp">
+    <div style="display:grid;grid-template-columns:130px 1fr;gap:10px;margin-bottom:10px">
+      <div><label class="flabel">Proyecto</label><select id="psel"><option value="zebrano">Zebrano</option><option value="theron">Theron</option><option value="vetcom">VETCOM</option><option value="inteltech">Inteltech</option><option value="kensei">Kensei</option></select></div>
+      <div><label class="flabel">Token secreto</label><input type="password" id="tsec" value="antigravity2026secret"></div>
+    </div>
+    <div style="margin-bottom:10px"><label class="flabel">Descripción de la misión</label><textarea id="ttask" placeholder="Describí la misión para el ejército de agentes..."></textarea></div>
+    <div style="display:flex;gap:10px;align-items:center">
+      <button class="bsend" onclick="enviarMision()">▶ EJECUTAR MISIÓN</button>
+      <span id="tfb" style="font-family:monospace;font-size:10px;color:var(--text3)"></span>
+    </div>
+  </div>
+
+  <div class="sh"><span class="st">Registro de Misiones</span><span class="sk">記録</span><div class="sl"></div></div>
+  <table class="jt">
+    <thead><tr><th>Job ID</th><th>Proyecto</th><th>Misión</th><th>Estado</th><th>Commit</th><th>Rollback</th><th>Hora</th></tr></thead>
+    <tbody id="jtb">
+      <tr>
+        <td><span class="jid">396ed12d</span></td>
+        <td><span class="jz jz-z">ZEBRANO</span></td>
+        <td><span class="jtask">Conversión cotización → orden de trabajo</span></td>
+        <td><span class="jb jb-done">● COMPLETADO</span></td>
+        <td><span class="jc">#pendiente</span></td>
+        <td><button class="rb">↩</button></td>
+        <td style="font-family:monospace;font-size:9px;color:var(--text3)">03:21</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="sh"><span class="st">GitHub · Commits</span><span class="sk">変更</span><div class="sl"></div></div>
+  <div class="gp">
+    <div class="gr"><span class="gpr jz-z">ZEBRANO</span><span class="gh">a3f8c21</span><span class="gm">feat: Dashboard redesign PowerAI theme</span><span class="gst gs-ok">synced</span><span class="gt">hace 2d</span></div>
+    <div class="gr"><span class="gpr jz-t">THERON</span><span class="gh">b7e1d45</span><span class="gm">fix: Webhook leader timeout handling</span><span class="gst gs-ok">synced</span><span class="gt">hace 5d</span></div>
+    <div class="gr"><span class="gpr jz-z">ZEBRANO</span><span class="gh">#pending</span><span class="gm">feat: convertir-cotizacion-v1 generado por Kensei</span><span class="gst gs-p">pendiente deploy</span><span class="gt">hoy</span></div>
+  </div>
+</div>
+
+<div id="view-agt" style="display:none">
+  <div class="sh"><span class="st">Ejército de Agentes</span><span class="sk">軍隊</span><div class="sl"></div></div>
+  <div class="ag">
+    <div class="ac"><div class="av av-pl">PL</div><div class="an">PLANNER</div><div class="ar">ESTRATEGA · LVL 5</div><div class="al"><div class="lp f"></div><div class="lp f"></div><div class="lp f"></div><div class="lp f"></div><div class="lp f"></div></div><div class="at">Analiza tareas · divide subtareas · asigna agentes · estima tiempos</div></div>
+    <div class="ac"><div class="av av-be">BE</div><div class="an">BACKEND</div><div class="ar">INGENIERO · LVL 5</div><div class="al"><div class="lp f"></div><div class="lp f"></div><div class="lp f"></div><div class="lp f"></div><div class="lp f"></div></div><div class="at">APIs · Edge Functions · SQL · Supabase · lógica de negocio · RLS</div></div>
+    <div class="ac"><div class="av av-fe">FE</div><div class="an">FRONTEND</div><div class="ar">DISEÑADOR · LVL 4</div><div class="al"><div class="lp f"></div><div class="lp f"></div><div class="lp f"></div><div class="lp f"></div><div class="lp"></div></div><div class="at">React · componentes · PowerAI theme · UX · páginas · hooks</div></div>
+    <div class="ac"><div class="av av-qa">QA</div><div class="an">QA</div><div class="ar">GUARDIAN · LVL 4</div><div class="al"><div class="lp f"></div><div class="lp f"></div><div class="lp f"></div><div class="lp f"></div><div class="lp"></div></div><div class="at">Tests · bugs · edge cases · validación · seguridad · race conditions</div></div>
+    <div class="ac"><div class="av av-rv">RV</div><div class="an">REVIEWER</div><div class="ar">SENSEI · LVL 5</div><div class="al"><div class="lp f"></div><div class="lp f"></div><div class="lp f"></div><div class="lp f"></div><div class="lp f"></div></div><div class="at">Calidad · consistencia · design system · aprobación final · docs</div></div>
+    <div class="ac" style="border-style:dashed;opacity:0.4;cursor:default"><div class="av" style="background:rgba(88,88,100,0.1);border:1px dashed var(--border2);color:var(--text3)">+</div><div class="an" style="color:var(--text3)">NUEVO AGENTE</div><div class="ar">SLOT DISPONIBLE</div><div class="al"><div class="lp"></div><div class="lp"></div><div class="lp"></div><div class="lp"></div><div class="lp"></div></div><div class="at" style="color:var(--text3)">Slot para agente especializado futuro</div></div>
+  </div>
+</div>
+
+<div id="view-prj" style="display:none">
+  <div class="sh"><span class="st">Estado de Proyectos</span><span class="sk">プロジェクト</span><div class="sl"></div></div>
+  <div class="sg" style="grid-template-columns:repeat(2,1fr)">
+    <div class="sc warn"><div class="scl">ZEBRANO</div><div class="scv warn">60%</div><div class="scs">Carpintería ERP · 3 ítems críticos</div></div>
+    <div class="sc ok"><div class="scl">THERON</div><div class="scv ok">95%</div><div class="scs">Servicios Movistar · solo ajustes</div></div>
+    <div class="sc"><div class="scl">VETCOM</div><div class="scv" style="color:var(--text3)">0%</div><div class="scs">Movistar B2B · sin iniciar</div></div>
+    <div class="sc"><div class="scl">INTELTECH</div><div class="scv" style="color:var(--text3)">0%</div><div class="scs">IoT / Flota · sin iniciar</div></div>
+  </div>
+</div>
+
+<div id="view-uso" style="display:none">
+  <div class="sh"><span class="st">Consumo · Junio 2026</span><span class="sk">消費</span><div class="sl"></div></div>
+  <div class="ug">
+    <div class="uc">
+      <div class="ut">Anthropic API · tokens estimados</div>
+      <div class="ub"><div class="ubl"><span>Orquestador Kensei</span><span>~45k</span></div><div class="ubr"><div class="ubf f-acc" style="width:12%"></div></div></div>
+      <div class="ub"><div class="ubl"><span>Zebrano II</span><span>~180k</span></div><div class="ubr"><div class="ubf f-acc" style="width:48%"></div></div></div>
+      <div class="ub"><div class="ubl"><span>Theron Leader</span><span>~90k</span></div><div class="ubr"><div class="ubf f-acc" style="width:24%"></div></div></div>
+    </div>
+    <div class="uc">
+      <div class="ut">VPS Hostinger · recursos</div>
+      <div class="ub"><div class="ubl"><span>Disco</span><span>51G / 96G</span></div><div class="ubr"><div class="ubf f-warn" style="width:53%"></div></div></div>
+      <div class="ub"><div class="ubl"><span>RAM</span><span>21%</span></div><div class="ubr"><div class="ubf f-ok" style="width:21%"></div></div></div>
+      <div class="ub"><div class="ubl"><span>CPU</span><span>3%</span></div><div class="ubr"><div class="ubf f-ok" style="width:3%"></div></div></div>
+      <div class="ub"><div class="ubl"><span>Banda ancha</span><span>0.001 / 8TB</span></div><div class="ubr"><div class="ubf f-ok" style="width:1%"></div></div></div>
+    </div>
+  </div>
+</div>
+
+</main>
+</div>
+<script>
+function showTab(t){
+  ['cmd','agt','prj','uso'].forEach(function(v,i){document.getElementById('view-'+v).style.display=v===t?'':'none';});
+  document.querySelectorAll('.nav-tab').forEach(function(el,i){el.classList.toggle('active',['cmd','agt','prj','uso'][i]===t);});
+}
+async function enviarMision(){
+  var token=document.getElementById('tsec').value;
+  var proy=document.getElementById('psel').value;
+  var tarea=document.getElementById('ttask').value;
+  var fb=document.getElementById('tfb');
+  if(!tarea.trim()){fb.textContent='Escribi la mision primero';return;}
+  fb.textContent='Enviando...';
+  try{
+    var res=await fetch('http://212.85.15.234:3001/tarea',{method:'POST',headers:{'Content-Type':'application/json','X-Secret':token},body:JSON.stringify({proyecto:proy,tarea:tarea})});
+    var d=await res.json();
+    fb.textContent='Job encolado: '+(d.jobId||'?').substring(0,8);
+    var tb=document.getElementById('jtb');
+    var tr=document.createElement('tr');
+    var short=(d.jobId||'nuevo').substring(0,8);
+    tr.innerHTML='<td><span class="jid">'+short+'</span></td><td><span class="jz jz-'+proy+'">'+proy.toUpperCase()+'</span></td><td><span class="jtask">'+tarea+'</span></td><td><span class="jb jb-run">● EN COLA</span></td><td><span class="jc">#pendiente</span></td><td><button class="rb">↩</button></td><td style="font-family:monospace;font-size:9px;color:var(--text3)">'+new Date().toTimeString().slice(0,5)+'</td>';
+    tb.insertBefore(tr,tb.firstChild);
+    document.getElementById('jcount').textContent=tb.rows.length;
+  }catch(e){fb.textContent='Error: '+e.message;}
+}
+async function checkHealth(){
+  try{
+    var r=await fetch('http://212.85.15.234:3001/health');
+    var d=await r.json();
+    var m=Math.round(d.uptime/60);
+    document.getElementById('ulbl').textContent='ONLINE · '+m+'min';
+    document.getElementById('uval').textContent=m+'m';
+  }catch(e){
+    document.getElementById('ulbl').textContent='OFFLINE';
+    document.getElementById('uval').textContent='—';
+  }
+}
+checkHealth();
+setInterval(checkHealth,30000);
+</script>
+</body>
+</html>

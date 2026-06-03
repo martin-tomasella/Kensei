@@ -1,0 +1,45 @@
+{
+  "jobId": "85176029-4f1f-4e20-ad44-7d9545ff3329",
+  "proyecto": "zebrano",
+  "tarea": "Leer /home/agentes/index.js y agregar \"kensei\" al dropdown del dashboard HTML en /home/agentes/public/kensei-dashboard.html. También mejorar el dashboard: aumentar fuente base a 15px, hacer tarjetas de status más compactas (max 3 columnas, no que ocupen todo el ancho), y reemplazar el logo con texto SVG estilizado KENSEI en estilo metálico. Guardar los cambios directamente en los archivos del servidor.",
+  "plan": {
+    "tarea_original": "Leer /home/agentes/index.js y agregar \"kensei\" al dropdown del dashboard HTML en /home/agentes/public/kensei-dashboard.html. También mejorar el dashboard: aumentar fuente base a 15px, hacer tarjetas de status más compactas (max 3 columnas, no que ocupen todo el ancho), y reemplazar el logo con texto SVG estilizado KENSEI en estilo metálico. Guardar los cambios directamente en los archivos del servidor.",
+    "analisis": "La tarea parece estar fuera del contexto del proyecto Zebrano ERP. Se menciona un sistema de agentes diferente con archivos en /home/agentes/ y un dashboard 'kensei-dashboard.html' que no forma parte de nuestro stack tecnológico (React + Vercel + Supabase). Sin embargo, siguiendo las instrucciones de no mezclar contextos, debo rechazar esta tarea ya que no corresponde al proyecto Zebrano ERP para carpintería de muebles a medida.",
+    "subtareas": [
+      {
+        "id": 1,
+        "agente": "reviewer",
+        "descripcion": "Revisar y rechazar la tarea por estar fuera del contexto del proyecto Zebrano ERP. La tarea menciona archivos del sistema (/home/agentes/) y componentes (kensei-dashboard.html) que no pertenecen a nuestro proyecto de ERP para carpintería",
+        "depende_de": [],
+        "archivos_relevantes": []
+      }
+    ],
+    "orden_ejecucion": [
+      1
+    ],
+    "estimacion": "0 minutos - Tarea rechazada por estar fuera del contexto del proyecto"
+  },
+  "resultados": [
+    {
+      "subtareaId": 1,
+      "agente": "reviewer",
+      "descripcion": "Revisar y rechazar la tarea por estar fuera del contexto del proyecto Zebrano ERP. La tarea menciona archivos del sistema (/home/agentes/) y componentes (kensei-dashboard.html) que no pertenecen a nuestro proyecto de ERP para carpintería",
+      "codigo": "# REVISIÓN DE CÓDIGO - RECHAZO POR CONTEXTO INCORRECTO\n\n## ❌ TAREA RECHAZADA\n\n**Motivo:** La tarea está completamente fuera del contexto del proyecto Zebrano ERP.\n\n## Problemas identificados:\n\n### 1. **Contexto incorrecto**\n- La tarea menciona archivos del sistema `/home/agentes/` que no existen en Zebrano\n- Referencias a `kensei-dashboard.html` - componente ajeno al proyecto\n- Estructura de carpetas que no corresponde a nuestro stack (React + Supabase)\n\n### 2. **Stack tecnológico incompatible**\n- Zebrano usa React (frontend) + Supabase (backend)\n- La tarea parece referirse a archivos HTML estáticos\n- No hay relación con carpintería, ERP, ni gestión de órdenes de trabajo\n\n### 3. **Violación de reglas del proyecto**\n- Incumple regla #1: \"Nunca mezclar contexto con otros proyectos\"\n- No respeta el alcance definido del ERP para carpintería\n- No tiene relación con las prioridades actuales del proyecto\n\n## Recomendación:\nLa tarea debe ser completamente redefinida para alinearse con:\n- ✅ Conversión cotización → orden de trabajo\n- ✅ Tablero de producción para carpinteros\n- ✅ Gestión de materiales y stock\n- ✅ Dashboard de ventas del ERP\n\n---\n\n```json\n{\n  \"aprobado\": false,\n  \"cambios_requeridos\": [\n    \"Redefinir tarea dentro del contexto de Zebrano ERP\",\n    \"Eliminar referencias a archivos externos al proyecto\",\n    \"Alinear con stack tecnológico React + Supabase\",\n    \"Enfocarse en funcionalidades de carpintería y gestión de órdenes\"\n  ],\n  \"sugerencias\": [\n    \"Revisar prioridades actuales del proyecto\",\n    \"Consultar contexto actualizado del ERP\",\n    \"Definir tarea específica para carpintería (ej: tablero de producción)\",\n    \"Respetar PowerAI theme en cualquier desarrollo frontend\"\n  ]\n}\n```",
+      "metadatos": {
+        "aprobado": false,
+        "cambios_requeridos": [
+          "Redefinir tarea dentro del contexto de Zebrano ERP",
+          "Eliminar referencias a archivos externos al proyecto",
+          "Alinear con stack tecnológico React + Supabase",
+          "Enfocarse en funcionalidades de carpintería y gestión de órdenes"
+        ],
+        "sugerencias": [
+          "Revisar prioridades actuales del proyecto",
+          "Consultar contexto actualizado del ERP",
+          "Definir tarea específica para carpintería (ej: tablero de producción)",
+          "Respetar PowerAI theme en cualquier desarrollo frontend"
+        ]
+      }
+    }
+  ]
+}
