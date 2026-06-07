@@ -370,3 +370,64 @@ Si encuentra ese patrón, debe escribir el contenido en esa ruta con fs.writeFil
 [2026-06-07 02:44:13] INFO: [kensei] Frontend Agent completó — 2399 chars
 [2026-06-07 02:44:13] WARN: No se pudo parsear JSON de la respuesta
 [2026-06-07 02:44:13] INFO: [kensei] Llamando agente: QA Agent
+[2026-06-07 02:44:37] INFO: [kensei] QA Agent completó — 4252 chars
+[2026-06-07 02:44:37] WARN: No se pudo parsear JSON de la respuesta
+[2026-06-07 02:44:37] INFO: [kensei] Llamando agente: Reviewer Agent
+[2026-06-07 02:45:10] INFO: [kensei] Reviewer Agent completó — 4789 chars
+[2026-06-07 02:45:10] INFO: [kensei] CONTEXT.md actualizado
+[2026-06-07 02:45:10] INFO: JOB c1bdd132-a721-41e0-b8e4-eadc4a2ee4ef COMPLETADO
+[2026-06-07 02:45:10] INFO: apply-job ejecutado
+[2026-06-07 02:45:26] INFO: Nueva tarea — Job 4120d476-1899-4881-b2dc-1525c2e42450 — kensei: "Agregar en /home/agentes/public/kensei-dashboard.html un boton + Nuevo Proyecto debajo de la lista de proyectos en el sidebar. Al clickear abre un modal con campos: Nombre, Descripcion, Stack. Boton Crear hace POST a /proyecto/nuevo con {nombre, descripcion, stack} y header X-Secret con valor antigravity2026secret. Si respuesta ok agrega el proyecto al sidebar y cierra el modal. Mantener todo el resto del dashboard exactamente igual. Escribir el archivo completo con formato ARCHIVO:/home/agentes/public/kensei-dashboard.html FIN_ARCHIVO."
+[2026-06-07 02:45:26] INFO: JOB 4120d476-1899-4881-b2dc-1525c2e42450 — Proyecto: kensei — Tarea: Agregar en /home/agentes/public/kensei-dashboard.html un boton + Nuevo Proyecto debajo de la lista de proyectos en el sidebar. Al clickear abre un modal con campos: Nombre, Descripcion, Stack. Boton Crear hace POST a /proyecto/nuevo con {nombre, descripcion, stack} y header X-Secret con valor antigravity2026secret. Si respuesta ok agrega el proyecto al sidebar y cierra el modal. Mantener todo el resto del dashboard exactamente igual. Escribir el archivo completo con formato ARCHIVO:/home/agentes/public/kensei-dashboard.html FIN_ARCHIVO.
+[2026-06-07 02:45:26] INFO: [kensei] Contexto cargado — 8998 caracteres
+[2026-06-07 02:45:26] INFO: [kensei] Llamando agente: Planner Agent
+[2026-06-07 02:45:49] INFO: [kensei] Planner Agent completó — 4062 chars
+[2026-06-07 02:45:49] INFO: Plan generado — 3 subtareas
+[2026-06-07 02:45:49] INFO: [kensei] Llamando agente: Frontend Agent
+[2026-06-07 02:46:56] INFO: [kensei] Frontend Agent completó — 21956 chars
+[2026-06-07 02:46:56] WARN: No se pudo parsear JSON de la respuesta
+[2026-06-07 02:46:56] INFO: [kensei] Llamando agente: QA Agent
+[2026-06-07 02:48:18] INFO: [kensei] QA Agent completó — 24452 chars
+[2026-06-07 02:48:18] WARN: No se pudo parsear JSON de la respuesta
+[2026-06-07 02:48:18] INFO: [kensei] Llamando agente: Reviewer Agent
+[2026-06-07 02:48:53] INFO: [kensei] Reviewer Agent completó — 5139 chars
+[2026-06-07 02:48:53] WARN: No se pudo parsear JSON de la respuesta
+[2026-06-07 02:48:53] INFO: [kensei] CONTEXT.md actualizado
+[2026-06-07 02:48:53] INFO: JOB 4120d476-1899-4881-b2dc-1525c2e42450 COMPLETADO
+[2026-06-07 02:48:53] INFO: apply-job ejecutado
+[2026-06-07 03:00:37] INFO: Nueva tarea — Job 2c44f9c8-9012-4bb1-9be1-f20da508c2b3 — kensei: "Modificar /home/agentes/public/kensei-dashboard.html con estos 3 cambios: 1) Agregar debajo del Registro de Misiones un formulario de Nueva Mision con: select de proyecto (zebrano,theron,vetcom,inteltech,kensei), input password para token con valor por defecto antigravity2026secret, textarea para descripcion de la tarea, y boton Ejecutar Mision que hace POST /tarea con {proyecto, tarea: descripcion} y header X-Secret. 2) Las tarjetas de servicios (n8n, Supabase Zebrano, Supabase Alfred, Vercel, Anthropic, TikTok) deben estar todas en una sola fila horizontal. 3) Los agentes del sidebar (PL, BE, FE, QA, RV) deben estar en una sola fila horizontal compacta. Mantener todo lo demas igual. Usar formato ARCHIVO:/home/agentes/public/kensei-dashboard.html FIN_ARCHIVO."
+[2026-06-07 03:00:37] INFO: JOB 2c44f9c8-9012-4bb1-9be1-f20da508c2b3 — Proyecto: kensei — Tarea: Modificar /home/agentes/public/kensei-dashboard.html con estos 3 cambios: 1) Agregar debajo del Registro de Misiones un formulario de Nueva Mision con: select de proyecto (zebrano,theron,vetcom,inteltech,kensei), input password para token con valor por defecto antigravity2026secret, textarea para descripcion de la tarea, y boton Ejecutar Mision que hace POST /tarea con {proyecto, tarea: descripcion} y header X-Secret. 2) Las tarjetas de servicios (n8n, Supabase Zebrano, Supabase Alfred, Vercel, Anthropic, TikTok) deben estar todas en una sola fila horizontal. 3) Los agentes del sidebar (PL, BE, FE, QA, RV) deben estar en una sola fila horizontal compacta. Mantener todo lo demas igual. Usar formato ARCHIVO:/home/agentes/public/kensei-dashboard.html FIN_ARCHIVO.
+[2026-06-07 03:00:37] INFO: [kensei] Contexto cargado — 9687 caracteres
+[2026-06-07 03:00:37] INFO: [kensei] Llamando agente: Planner Agent
+[2026-06-07 03:00:57] INFO: [kensei] Planner Agent completó — 4037 chars
+[2026-06-07 03:00:57] INFO: Plan generado — 3 subtareas
+[2026-06-07 03:00:57] INFO: [kensei] Llamando agente: Frontend Agent
+[2026-06-07 03:02:05] INFO: [kensei] Frontend Agent completó — 22586 chars
+[2026-06-07 03:02:05] WARN: No se pudo parsear JSON de la respuesta
+[2026-06-07 03:02:05] INFO: [kensei] Llamando agente: QA Agent
+[2026-06-07 03:02:30] INFO: [kensei] QA Agent completó — 3698 chars
+[2026-06-07 03:02:30] WARN: No se pudo parsear JSON de la respuesta
+[2026-06-07 03:02:30] INFO: [kensei] Llamando agente: Reviewer Agent
+[2026-06-07 03:03:04] INFO: [kensei] Reviewer Agent completó — 6304 chars
+[2026-06-07 03:03:04] WARN: No se pudo parsear JSON de la respuesta
+[2026-06-07 03:03:04] INFO: [kensei] CONTEXT.md actualizado
+[2026-06-07 03:03:04] INFO: JOB 2c44f9c8-9012-4bb1-9be1-f20da508c2b3 COMPLETADO
+[2026-06-07 03:03:04] INFO: apply-job ejecutado
+[2026-06-07 03:07:48] INFO: Nueva tarea — Job ed9ee063-019b-45b6-9420-4ee0f16c0dc7 — kensei: "Para el bloque Registro de misiones, quiero que la "nueva mision" este en la parte superior, justo debajo de los indicadores y servicios. Luego del bloque nueva mision, esten las diferentes tareas y el estado de las mismas. "
+[2026-06-07 03:07:48] INFO: JOB ed9ee063-019b-45b6-9420-4ee0f16c0dc7 — Proyecto: kensei — Tarea: Para el bloque Registro de misiones, quiero que la "nueva mision" este en la parte superior, justo debajo de los indicadores y servicios. Luego del bloque nueva mision, esten las diferentes tareas y el estado de las mismas. 
+[2026-06-07 03:07:48] INFO: [kensei] Contexto cargado — 10604 caracteres
+[2026-06-07 03:07:48] INFO: [kensei] Llamando agente: Planner Agent
+[2026-06-07 03:08:07] INFO: [kensei] Planner Agent completó — 3384 chars
+[2026-06-07 03:08:07] INFO: Plan generado — 3 subtareas
+[2026-06-07 03:08:07] INFO: [kensei] Llamando agente: Frontend Agent
+[2026-06-07 03:09:24] INFO: [kensei] Frontend Agent completó — 25680 chars
+[2026-06-07 03:09:24] WARN: No se pudo parsear JSON de la respuesta
+[2026-06-07 03:09:24] INFO: [kensei] Llamando agente: QA Agent
+[2026-06-07 03:10:58] INFO: [kensei] QA Agent completó — 28576 chars
+[2026-06-07 03:10:58] WARN: No se pudo parsear JSON de la respuesta
+[2026-06-07 03:10:58] INFO: [kensei] Llamando agente: Reviewer Agent
+[2026-06-07 03:11:31] INFO: [kensei] Reviewer Agent completó — 4328 chars
+[2026-06-07 03:11:31] WARN: No se pudo parsear JSON de la respuesta
+[2026-06-07 03:11:31] INFO: [kensei] CONTEXT.md actualizado
+[2026-06-07 03:11:31] INFO: JOB ed9ee063-019b-45b6-9420-4ee0f16c0dc7 COMPLETADO
+[2026-06-07 03:11:31] INFO: apply-job ejecutado
