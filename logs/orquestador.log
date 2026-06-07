@@ -265,3 +265,6 @@ Si encuentra ese patrón, debe escribir el contenido en esa ruta con fs.writeFil
 [2026-06-07 01:34:03] INFO: JOB c308aad7-3f7f-4797-a13d-657b05618822 COMPLETADO
 [2026-06-07 01:34:03] INFO: apply-job ejecutado
 [2026-06-07 01:34:04] WARN: Callback Alfred falló: Request failed with status code 404
+[2026-06-07 01:47:09] INFO: Orquestador iniciado en puerto 3001
+[2026-06-07 01:47:09] INFO: UI: http://localhost:3001
+[2026-06-07 01:47:09] INFO: Health: http://localhost:3001/health
