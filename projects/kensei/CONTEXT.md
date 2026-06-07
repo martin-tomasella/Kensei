@@ -136,6 +136,30 @@ Completadas 3 subtareas. Agentes: frontend, qa, reviewer.
 Completadas 3 subtareas. Agentes: frontend, qa, reviewer.
 <!-- FIN ACTUALIZACIÓN -->
 
+
+<!-- ACTUALIZACIÓN 2026-06-07 -->
+## Sesión 2026-06-07 — "Agregar un nuevo agente especialista en diseño en /home/agentes/agents/index.js. El agente se llama Design Agent, codigo DS, nivel 5. Es experto en: 1) Identidad visual: logos SVG, paletas de color, tipografia, branding. 2) UI/UX: wireframes en HTML/CSS, componentes React, design systems. 3) Referencias y recursos: shadcn/ui, Tailwind CSS, Radix UI, Material Design, Ant Design, Framer Motion. 4) Conoce los design systems de los proyectos del holding: Zebrano usa PowerAI theme (primary #8F2FFE, secondary #DF53FE, body #0E0912), Kensei usa fondo #080c10 estilo militar/tech japonés. 5) Puede generar assets SVG completos, paletas hex, guias de estilo, y componentes visuales listos para produccion. Su system prompt debe incluir instrucciones para usar formato ARCHIVO:/ruta FIN_ARCHIVO. Tambien actualizar /home/agentes/public/kensei-dashboard.html para mostrar el nuevo agente DS en el sidebar junto a los otros. Usar formato ARCHIVO:/ruta FIN_ARCHIVO para ambos archivos."
+Completadas 4 subtareas. Agentes: backend, frontend, qa, reviewer.
+<!-- FIN ACTUALIZACIÓN -->
+
+
+<!-- ACTUALIZACIÓN 2026-06-07 -->
+## Sesión 2026-06-07 — "Modificar /home/agentes/orchestrator.js para agregar tool use al Design Agent. El agente debe tener una herramienta fetch_url que recibe una URL y devuelve el contenido de esa página. Usar la API de Anthropic con tools. Cuando el Design Agent recibe una URL de GitHub, hace fetch y lee el contenido antes de responder."
+Completadas 3 subtareas. Agentes: backend, qa, reviewer.
+<!-- FIN ACTUALIZACIÓN -->
+
+
+<!-- ACTUALIZACIÓN 2026-06-07 -->
+## Sesión 2026-06-07 — "Agregar en /home/agentes/public/kensei-dashboard.html una seccion de Chat con el Orquestador. Debe ser una ventana de dialogo estilo chat (como Claude o ChatGPT) con: 1) Historial de mensajes con burbujas, mensajes del usuario a la derecha y respuestas del orquestador a la izquierda. 2) Input de texto en la parte inferior. 3) Boton de subir imagen (icono de clip o camara) que permita seleccionar una imagen, mostrarla como preview en el chat, y enviarla convertida a base64 junto al mensaje. 4) Al enviar, hace POST a /chat con {mensaje, imagen_base64 (opcional), proyecto} y header X-Secret. 5) El endpoint /chat debe agregarse en /home/agentes/index.js — recibe el mensaje e imagen, llama al orquestador con esa info, y devuelve la respuesta en streaming o como texto. 6) El chat debe tener un selector para elegir con quien hablas: Orquestador General o Design Agent. Estilo visual igual al dashboard actual (fondo oscuro, tipografia Rajdhani). Usar formato ARCHIVO:/ruta FIN_ARCHIVO para todos los archivos modificados."
+Completadas 4 subtareas. Agentes: backend, frontend, qa, reviewer.
+<!-- FIN ACTUALIZACIÓN -->
+
+
+<!-- ACTUALIZACIÓN 2026-06-07 -->
+## Sesión 2026-06-07 — "Agregar en /home/agentes/index.js el endpoint POST /chat que: 1) Recibe {mensaje, imagen_base64, agente} donde agente puede ser general o design. 2) Si agente es design usa el system prompt del Design Agent. Si es general usa un system prompt de orquestador conversacional. 3) Llama directamente a la API de Anthropic con el mensaje y la imagen si existe. 4) Devuelve {respuesta: texto}. NO modificar nada mas del index.js. Usar formato ARCHIVO:/home/agentes/index.js FIN_ARCHIVO con el archivo completo."
+Completadas 3 subtareas. Agentes: backend, qa, reviewer.
+<!-- FIN ACTUALIZACIÓN -->
+
 ## ⚠️ PENDIENTE
 
 ### Alta prioridad

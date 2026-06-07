@@ -1,111 +1,172 @@
-require('dotenv').config();
+const express = require('express');
 const Anthropic = require('@anthropic-ai/sdk');
-const fs = require('fs-extra');
+const fs = require('fs').promises;
 const path = require('path');
-const { v4: uuidv4 } = require('uuid');
-const logger = require('./logger');
-const AGENTS = require('./agents/index');
+const fetch = require('node-fetch');
 
-const anthropic = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
-const PROJECTS_PATH = process.env.PROJECTS_PATH || path.join(__dirname, 'projects');
+const app = express();
+app.use(express.json());
+app.use(express.static('public'));
 
-async function cargarContexto(proyecto) {
-  const contextPath = path.join(PROJECTS_PATH, proyecto, 'CONTEXT.md');
-  if (!await fs.pathExists(contextPath)) {
-    throw new Error(`No existe CONTEXT.md para el proyecto "${proyecto}"`);
+const client = new Anthropic({
+  apiKey: process.env.ANTHROPIC_API_KEY || 'sk-ant-api03-qjqiYDkGPTZZxUuZ-9J_q59KU6Wz7LlcgVYi-LVvlYwxN8k3xHd2VllvUd1J9SGYMCdUbFO1uOPvQUqZ0Gc5FQ-OZ7hNgAA'
+});
+
+const SECRET = 'antigravity2026secret';
+const jobs = new Map();
+let jobCounter = 0;
+
+// Middleware de autenticación
+function authMiddleware(req, res, next) {
+  const secret = req.headers['x-secret'];
+  if (secret !== SECRET) {
+    return res.status(403).json({ error: 'Forbidden' });
   }
-  const contenido = await fs.readFile(contextPath, 'utf8');
-  logger.info(`[${proyecto}] Contexto cargado — ${contenido.length} caracteres`);
-  return contenido;
+  next();
 }
 
-async function llamarAgente(agente, contexto, mensajeUsuario) {
-  const systemPrompt = agente.systemPrompt(contexto);
-  logger.info(`[${contexto.proyecto}] Llamando agente: ${agente.name}`);
-  const response = await anthropic.messages.create({
-    model: 'claude-sonnet-4-5',
-    max_tokens: 16000,
-    system: systemPrompt,
-    messages: [{ role: 'user', content: mensajeUsuario }],
-  });
-  const texto = response.content.map(b => b.text || '').join('');
-  logger.info(`[${contexto.proyecto}] ${agente.name} completó — ${texto.length} chars`);
-  return texto;
-}
-
-function extraerJSON(texto) {
+// Cargar agentes
+async function loadAgents() {
   try {
-    const match = texto.match(/\{[\s\S]*\}(?=[^}]*$)/);
-    if (match) return JSON.parse(match[0]);
-  } catch (e) {
-    logger.warn('No se pudo parsear JSON de la respuesta');
+    const agentsPath = path.join(__dirname, 'agents', 'index.js');
+    const agentsModule = require(agentsPath);
+    return agentsModule.agents || [];
+  } catch (error) {
+    console.error('Error cargando agentes:', error);
+    return [];
   }
-  return null;
 }
 
-async function actualizarContexto(proyecto, tarea, resultado) {
-  const contextPath = path.join(PROJECTS_PATH, proyecto, 'CONTEXT.md');
-  const contextoActual = await fs.readFile(contextPath, 'utf8');
-  const fecha = new Date().toISOString().split('T')[0];
-  const entrada = `\n<!-- ACTUALIZACIÓN ${fecha} -->\n## Sesión ${fecha} — "${tarea}"\n${resultado.resumen || 'Tarea completada.'}\n<!-- FIN ACTUALIZACIÓN -->\n`;
-  const actualizado = contextoActual.includes('## ⚠️ PENDIENTE')
-    ? contextoActual.replace('## ⚠️ PENDIENTE', entrada + '\n## ⚠️ PENDIENTE')
-    : contextoActual + entrada;
-  await fs.writeFile(contextPath, actualizado, 'utf8');
-  logger.info(`[${proyecto}] CONTEXT.md actualizado`);
+// Cargar contexto del proyecto
+async function loadContext(proyecto) {
+  try {
+    const contextPath = path.join(__dirname, 'projects', proyecto, 'CONTEXT.md');
+    const context = await fs.readFile(contextPath, 'utf-8');
+    return context;
+  } catch (error) {
+    console.error(`Error cargando contexto de ${proyecto}:`, error);
+    return '';
+  }
 }
 
-async function orquestar({ proyecto, tarea, jobId = uuidv4() }) {
-  logger.info(`JOB ${jobId} — Proyecto: ${proyecto} — Tarea: ${tarea}`);
-  const contenidoContexto = await cargarContexto(proyecto);
-  const contexto = { proyecto, contenido: contenidoContexto };
+// Función para hacer fetch con timeout
+async function fetchWithTimeout(url, timeout = 10000) {
+  const controller = new AbortController();
+  const timeoutId = setTimeout(() => controller.abort(), timeout);
+  
+  try {
+    const response = await fetch(url, { signal: controller.signal });
+    clearTimeout(timeoutId);
+    
+    if (!response.ok) {
+      throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+    }
+    
+    const text = await response.text();
+    return text;
+  } catch (error) {
+    clearTimeout(timeoutId);
+    if (error.name === 'AbortError') {
+      throw new Error('Request timeout after 10s');
+    }
+    throw error;
+  }
+}
 
-  const planTexto = await llamarAgente(
-    AGENTS.planner, contexto,
-    `Tarea recibida: "${tarea}"\nAnalizá el contexto y generá el plan de acción.`
-  );
-
-  const plan = extraerJSON(planTexto);
-  if (!plan || !plan.subtareas) throw new Error('El Planner no generó un plan válido');
-
-  logger.info(`Plan generado — ${plan.subtareas.length} subtareas`);
-
-  const resultados = [];
-  for (const idSubtarea of plan.orden_ejecucion) {
-    const subtarea = plan.subtareas.find(s => s.id === idSubtarea);
-    if (!subtarea) continue;
-    const agente = AGENTS[subtarea.agente];
-    if (!agente) continue;
-
-    const contextoPrevio = resultados.length > 0
-      ? `TRABAJO PREVIO:\n${resultados.map(r => `[${r.agente}]: ${r.codigo?.substring(0, 8000)}`).join('\n\n')}\n\n`
-      : '';
-
-    const respuesta = await llamarAgente(
-      agente, contexto,
-      `${contextoPrevio}TU TAREA: ${subtarea.descripcion}`
-    );
-
-    resultados.push({
-      subtareaId: idSubtarea,
-      agente: subtarea.agente,
-      descripcion: subtarea.descripcion,
-      codigo: respuesta,
-      metadatos: extraerJSON(respuesta),
-    });
+// Llamar a un agente con soporte de tool use
+async function callAgent(agentName, agentPrompt, userPrompt, isToolResult = false, toolResults = []) {
+  const agents = await loadAgents();
+  const agent = agents.find(a => a.code === agentName);
+  
+  if (!agent) {
+    throw new Error(`Agente ${agentName} no encontrado`);
   }
 
-  const resumenFinal = `Completadas ${resultados.length} subtareas. Agentes: ${[...new Set(resultados.map(r => r.agente))].join(', ')}.`;
-  await actualizarContexto(proyecto, tarea, { resumen: resumenFinal });
+  const messages = isToolResult 
+    ? toolResults 
+    : [{ role: 'user', content: userPrompt }];
 
-  const outputPath = path.join(PROJECTS_PATH, proyecto, 'outputs');
-  await fs.ensureDir(outputPath);
-  await fs.writeJSON(path.join(outputPath, `${jobId}.json`), { jobId, proyecto, tarea, plan, resultados }, { spaces: 2 });
+  const requestBody = {
+    model: 'claude-3-5-sonnet-20241022',
+    max_tokens: 8000,
+    system: agentPrompt,
+    messages: messages
+  };
 
-  logger.info(`JOB ${jobId} COMPLETADO`);
-  const { execSync } = require("child_process");
-  try { execSync(`/home/agentes/apply-job.sh ${proyecto}`, {cwd: '/home/agentes'}); logger.info("apply-job ejecutado"); } catch(e) { logger.warn("apply-job falló: " + e.message); }
-  return { jobId, proyecto, tarea, plan, resultados, resumen: resumenFinal };
+  // Solo agregar tools si es Design Agent
+  if (agentName === 'design') {
+    requestBody.tools = [{
+      name: 'fetch_url',
+      description: 'Fetches content from a URL, useful for reading GitHub files, documentation, or design resources',
+      input_schema: {
+        type: 'object',
+        properties: {
+          url: {
+            type: 'string',
+            description: 'The URL to fetch'
+          }
+        },
+        required: ['url']
+      }
+    }];
+  }
+
+  let response = await client.messages.create(requestBody);
+
+  // Tool use loop
+  while (response.stop_reason === 'tool_use') {
+    const toolUseBlock = response.content.find(block => block.type === 'tool_use');
+    
+    if (!toolUseBlock) break;
+
+    console.log(`[${agentName}] Tool use detected: ${toolUseBlock.name}`);
+    
+    let toolResult;
+    try {
+      if (toolUseBlock.name === 'fetch_url') {
+        const url = toolUseBlock.input.url;
+        console.log(`[${agentName}] Fetching: ${url}`);
+        const content = await fetchWithTimeout(url);
+        toolResult = {
+          type: 'tool_result',
+          tool_use_id: toolUseBlock.id,
+          content: content.substring(0, 50000) // Limitar a 50k caracteres
+        };
+      } else {
+        toolResult = {
+          type: 'tool_result',
+          tool_use_id: toolUseBlock.id,
+          content: 'Unknown tool',
+          is_error: true
+        };
+      }
+    } catch (error) {
+      console.error(`[${agentName}] Tool error:`, error.message);
+      toolResult = {
+        type: 'tool_result',
+        tool_use_id: toolUseBlock.id,
+        content: `Error: ${error.message}`,
+        is_error: true
+      };
+    }
+
+    // Construir nuevo mensaje con tool result
+    const newMessages = [
+      { role: 'user', content: userPrompt },
+      { role: 'assistant', content: response.content },
+      { role: 'user', content: [toolResult] }
+    ];
+
+    requestBody.messages = newMessages;
+    response = await client.messages.create(requestBody);
+  }
+
+  const textContent = response.content
+    .filter(block => block.type === 'text')
+    .map(block => block.text)
+    .join('\n');
+
+  return textContent;
 }
 
-module.exports = { orquestar };
+// Parsear y escribir archivos desde formato ARCHIVO:/ruta
