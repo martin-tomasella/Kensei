@@ -24,7 +24,7 @@ async function llamarAgente(agente, contexto, mensajeUsuario) {
   logger.info(`[${contexto.proyecto}] Llamando agente: ${agente.name}`);
   const response = await anthropic.messages.create({
     model: 'claude-sonnet-4-5',
-    max_tokens: 8000,
+    max_tokens: 16000,
     system: systemPrompt,
     messages: [{ role: 'user', content: mensajeUsuario }],
   });
@@ -78,7 +78,7 @@ async function orquestar({ proyecto, tarea, jobId = uuidv4() }) {
     if (!agente) continue;
 
     const contextoPrevio = resultados.length > 0
-      ? `TRABAJO PREVIO:\n${resultados.map(r => `[${r.agente}]: ${r.codigo?.substring(0, 300)}`).join('\n\n')}\n\n`
+      ? `TRABAJO PREVIO:\n${resultados.map(r => `[${r.agente}]: ${r.codigo?.substring(0, 8000)}`).join('\n\n')}\n\n`
       : '';
 
     const respuesta = await llamarAgente(
@@ -104,7 +104,7 @@ async function orquestar({ proyecto, tarea, jobId = uuidv4() }) {
 
   logger.info(`JOB ${jobId} COMPLETADO`);
   const { execSync } = require("child_process");
-  try { execSync(`/home/agentes/apply-job.sh ${proyecto}`); logger.info("apply-job ejecutado"); } catch(e) { logger.warn("apply-job falló: " + e.message); }
+  try { execSync(`/home/agentes/apply-job.sh ${proyecto}`, {cwd: '/home/agentes'}); logger.info("apply-job ejecutado"); } catch(e) { logger.warn("apply-job falló: " + e.message); }
   return { jobId, proyecto, tarea, plan, resultados, resumen: resumenFinal };
 }
 

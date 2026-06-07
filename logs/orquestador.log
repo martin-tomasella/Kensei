@@ -201,3 +201,67 @@ Si encuentra ese patrón, debe escribir el contenido en esa ruta con fs.writeFil
 [2026-06-03 02:28:28] INFO: Orquestador iniciado en puerto 3001
 [2026-06-03 02:28:28] INFO: UI: http://localhost:3001
 [2026-06-03 02:28:28] INFO: Health: http://localhost:3001/health
+[2026-06-07 01:08:33] INFO: Orquestador iniciado en puerto 3001
+[2026-06-07 01:08:34] INFO: UI: http://localhost:3001
+[2026-06-07 01:08:34] INFO: Health: http://localhost:3001/health
+[2026-06-07 01:09:18] INFO: Nueva tarea — Job 4e8fa0a5-cc3f-4d0a-9b64-94b3f6b2b5cd — kensei: "Crear el archivo /home/agentes/public/test-agentes.html con un HTML simple que diga "Kensei v1 — agentes funcionando" en el estilo del dashboard (fondo #080c10, texto blanco, fuente Rajdhani). Usar formato ARCHIVO:/ruta FIN_ARCHIVO obligatoriamente."
+[2026-06-07 01:09:18] INFO: JOB 4e8fa0a5-cc3f-4d0a-9b64-94b3f6b2b5cd — Proyecto: kensei — Tarea: Crear el archivo /home/agentes/public/test-agentes.html con un HTML simple que diga "Kensei v1 — agentes funcionando" en el estilo del dashboard (fondo #080c10, texto blanco, fuente Rajdhani). Usar formato ARCHIVO:/ruta FIN_ARCHIVO obligatoriamente.
+[2026-06-07 01:09:18] INFO: [kensei] Contexto cargado — 5679 caracteres
+[2026-06-07 01:09:18] INFO: [kensei] Llamando agente: Planner Agent
+[2026-06-07 01:09:33] INFO: [kensei] Planner Agent completó — 2901 chars
+[2026-06-07 01:09:33] INFO: Plan generado — 3 subtareas
+[2026-06-07 01:09:33] INFO: [kensei] Llamando agente: Frontend Agent
+[2026-06-07 01:09:43] INFO: [kensei] Frontend Agent completó — 2574 chars
+[2026-06-07 01:09:43] WARN: No se pudo parsear JSON de la respuesta
+[2026-06-07 01:09:43] INFO: [kensei] Llamando agente: QA Agent
+[2026-06-07 01:09:57] INFO: [kensei] QA Agent completó — 2725 chars
+[2026-06-07 01:09:57] WARN: No se pudo parsear JSON de la respuesta
+[2026-06-07 01:09:57] INFO: [kensei] Llamando agente: Reviewer Agent
+[2026-06-07 01:10:16] INFO: [kensei] Reviewer Agent completó — 2572 chars
+[2026-06-07 01:10:16] INFO: [kensei] CONTEXT.md actualizado
+[2026-06-07 01:10:16] INFO: JOB 4e8fa0a5-cc3f-4d0a-9b64-94b3f6b2b5cd COMPLETADO
+[2026-06-07 01:10:16] INFO: apply-job ejecutado
+[2026-06-07 01:10:16] WARN: Callback Alfred falló: Request failed with status code 404
+[2026-06-07 01:21:37] INFO: Orquestador iniciado en puerto 3001
+[2026-06-07 01:21:37] INFO: UI: http://localhost:3001
+[2026-06-07 01:21:37] INFO: Health: http://localhost:3001/health
+[2026-06-07 01:22:40] INFO: Nueva tarea — Job ef12117a-d6e3-4c14-8720-5977ec3928df — kensei: "Crear el archivo /home/agentes/public/test-agentes.html con un HTML simple que diga "Kensei v1 — agentes funcionando" en el estilo del dashboard (fondo #080c10, texto blanco, fuente Rajdhani). Usar formato ARCHIVO:/ruta FIN_ARCHIVO obligatoriamente."
+[2026-06-07 01:22:40] INFO: JOB ef12117a-d6e3-4c14-8720-5977ec3928df — Proyecto: kensei — Tarea: Crear el archivo /home/agentes/public/test-agentes.html con un HTML simple que diga "Kensei v1 — agentes funcionando" en el estilo del dashboard (fondo #080c10, texto blanco, fuente Rajdhani). Usar formato ARCHIVO:/ruta FIN_ARCHIVO obligatoriamente.
+[2026-06-07 01:22:40] INFO: [kensei] Contexto cargado — 6075 caracteres
+[2026-06-07 01:22:40] INFO: [kensei] Llamando agente: Planner Agent
+[2026-06-07 01:22:55] INFO: [kensei] Planner Agent completó — 2784 chars
+[2026-06-07 01:22:55] INFO: Plan generado — 3 subtareas
+[2026-06-07 01:22:55] INFO: [kensei] Llamando agente: Frontend Agent
+[2026-06-07 01:23:03] INFO: [kensei] Frontend Agent completó — 1671 chars
+[2026-06-07 01:23:03] WARN: No se pudo parsear JSON de la respuesta
+[2026-06-07 01:23:03] INFO: [kensei] Llamando agente: QA Agent
+[2026-06-07 01:23:21] INFO: [kensei] QA Agent completó — 3314 chars
+[2026-06-07 01:23:21] WARN: No se pudo parsear JSON de la respuesta
+[2026-06-07 01:23:21] INFO: [kensei] Llamando agente: Reviewer Agent
+[2026-06-07 01:23:39] INFO: [kensei] Reviewer Agent completó — 3319 chars
+[2026-06-07 01:23:39] WARN: No se pudo parsear JSON de la respuesta
+[2026-06-07 01:23:39] INFO: [kensei] CONTEXT.md actualizado
+[2026-06-07 01:23:39] INFO: JOB ef12117a-d6e3-4c14-8720-5977ec3928df COMPLETADO
+[2026-06-07 01:23:39] INFO: apply-job ejecutado
+[2026-06-07 01:23:40] WARN: Callback Alfred falló: Request failed with status code 404
+[2026-06-07 01:31:18] INFO: Orquestador iniciado en puerto 3001
+[2026-06-07 01:31:18] INFO: UI: http://localhost:3001
+[2026-06-07 01:31:18] INFO: Health: http://localhost:3001/health
+[2026-06-07 01:32:55] INFO: Nueva tarea — Job c308aad7-3f7f-4797-a13d-657b05618822 — kensei: "Crear el archivo /home/agentes/public/test-agentes.html con un HTML simple que diga "Kensei v1 — agentes funcionando" en el estilo del dashboard (fondo #080c10, texto blanco, fuente Rajdhani). Usar formato ARCHIVO:/ruta FIN_ARCHIVO obligatoriamente."
+[2026-06-07 01:32:55] INFO: JOB c308aad7-3f7f-4797-a13d-657b05618822 — Proyecto: kensei — Tarea: Crear el archivo /home/agentes/public/test-agentes.html con un HTML simple que diga "Kensei v1 — agentes funcionando" en el estilo del dashboard (fondo #080c10, texto blanco, fuente Rajdhani). Usar formato ARCHIVO:/ruta FIN_ARCHIVO obligatoriamente.
+[2026-06-07 01:32:55] INFO: [kensei] Contexto cargado — 6471 caracteres
+[2026-06-07 01:32:55] INFO: [kensei] Llamando agente: Planner Agent
+[2026-06-07 01:33:14] INFO: [kensei] Planner Agent completó — 2883 chars
+[2026-06-07 01:33:14] INFO: Plan generado — 3 subtareas
+[2026-06-07 01:33:14] INFO: [kensei] Llamando agente: Frontend Agent
+[2026-06-07 01:33:22] INFO: [kensei] Frontend Agent completó — 1778 chars
+[2026-06-07 01:33:22] WARN: No se pudo parsear JSON de la respuesta
+[2026-06-07 01:33:22] INFO: [kensei] Llamando agente: QA Agent
+[2026-06-07 01:33:39] INFO: [kensei] QA Agent completó — 2679 chars
+[2026-06-07 01:33:39] INFO: [kensei] Llamando agente: Reviewer Agent
+[2026-06-07 01:34:03] INFO: [kensei] Reviewer Agent completó — 3548 chars
+[2026-06-07 01:34:03] WARN: No se pudo parsear JSON de la respuesta
+[2026-06-07 01:34:03] INFO: [kensei] CONTEXT.md actualizado
+[2026-06-07 01:34:03] INFO: JOB c308aad7-3f7f-4797-a13d-657b05618822 COMPLETADO
+[2026-06-07 01:34:03] INFO: apply-job ejecutado
+[2026-06-07 01:34:04] WARN: Callback Alfred falló: Request failed with status code 404
