@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kensei - Test Sistema</title>
+    <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Rajdhani', sans-serif;
+            background-color: #080c10;
+            color: #ffffff;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 15px;
+        }
+
+        .container {
+            text-align: center;
+            padding: 40px;
+            background: linear-gradient(135deg, #0a0f14 0%, #121820 100%);
+            border-radius: 12px;
+            border: 1px solid rgba(74, 138, 184, 0.2);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            max-width: 600px;
+            width: 90%;
+        }
+
+        h1 {
+            font-size: 42px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: #4a8ab8;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .status {
+            font-size: 24px;
+            font-weight: 500;
+            margin-bottom: 30px;
+            color: #00ff88;
+        }
+
+        .timestamp {
+            font-size: 18px;
+            font-weight: 400;
+            color: #8899aa;
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(74, 138, 184, 0.2);
+        }
+
+        .pulse {
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            background-color: #00ff88;
+            border-radius: 50%;
+            margin-right: 10px;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 0 0 0 rgba(0, 255, 136, 0.7);
+            }
+            50% {
+                box-shadow: 0 0 0 10px rgba(0, 255, 136, 0);
+            }
+            100% {
+                box-shadow: 0 0 0 0 rgba(0, 255, 136, 0);
+            }
+        }
+
+        .info {
+            font-size: 16px;
+            color: #6688aa;
+            margin-top: 15px;
+            line-height: 1.6;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>⚡ KENSEI</h1>
+        <div class="status">
+            <span class="pulse"></span>
+            Sistema Kensei operativo - Test exitoso
+        </div>
+        <div class="info">
+            Sistema de orquestación de agentes IA<br>
+            Proyecto: kensei<br>
+            Servidor: 212.85.15.234:3001
+        </div>
+        <div class="timestamp" id="timestamp">
+            Cargando timestamp...
+        </div>
+    </div>
+
+    <script>
+        function updateTimestamp() {
+            const now = new Date();
+            const fecha = now.toLocaleDateString('es-AR', { 
+                day: '2-digit', 
+                month: '2-digit', 
+                year: 'numeric' 
+            });
+            const hora = now.toLocaleTimeString('es-AR', { 
+                hour: '2-digit', 
+                minute: '2-digit', 
+                second: '2-digit' 
+            });
+            document.getElementById('timestamp').textContent = `${fecha} - ${hora}`;
+        }
+
+        updateTimestamp();
+        setInterval(updateTimestamp, 1000);
+    </script>
+</body>
+</html>

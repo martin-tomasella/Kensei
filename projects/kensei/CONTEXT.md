@@ -88,6 +88,30 @@ Completadas 3 subtareas. Agentes: frontend, qa, reviewer.
 Completadas 3 subtareas. Agentes: frontend, qa, reviewer.
 <!-- FIN ACTUALIZACIÓN -->
 
+
+<!-- ACTUALIZACIÓN 2026-06-07 -->
+## Sesión 2026-06-07 — "Modificar /home/agentes/public/kensei-dashboard.html para agregar funcionalidad de creación de nuevos proyectos. Agregar un botón "＋ Nuevo Proyecto" en la sección sidebar bajo Proyectos. Al clickearlo debe aparecer un modal con campos: nombre del proyecto, descripción breve, stack tecnológico. Al confirmar debe hacer POST a /proyecto/nuevo con esos datos. También modificar /home/agentes/index.js para agregar el endpoint POST /proyecto/nuevo que cree la carpeta /home/agentes/projects/{nombre}/, genere un CONTEXT.md básico con los datos ingresados, y agregue el proyecto al array proyectosValidos. Usar formato ARCHIVO:/ruta FIN_ARCHIVO para todos los archivos modificados."
+Completadas 4 subtareas. Agentes: backend, frontend, qa, reviewer.
+<!-- FIN ACTUALIZACIÓN -->
+
+
+<!-- ACTUALIZACIÓN 2026-06-07 -->
+## Sesión 2026-06-07 — "test"
+Completadas 3 subtareas. Agentes: frontend, qa, reviewer.
+<!-- FIN ACTUALIZACIÓN -->
+
+
+<!-- ACTUALIZACIÓN 2026-06-07 -->
+## Sesión 2026-06-07 — "Corregir SOLO /home/agentes/public/kensei-dashboard.html. NO modificar index.js ni orchestrator.js. Cambios requeridos: 1) El boton Nuevo Proyecto debe abrir un modal con campos nombre, descripcion y stack, al confirmar hace POST /proyecto/nuevo. 2) Agregar formulario de nueva mision con select de proyecto, input password para token, textarea para descripcion, y boton ejecutar que hace POST /tarea. 3) Restaurar tarjetas de estado: VPS uptime, disco 53%, RAM 21%, tokens, API OK. 4) Restaurar seccion servicios con n8n, Supabase Zebrano, Supabase Alfred, Vercel, Anthropic, TikTok con indicadores de estado. Mantener el diseno actual. Usar formato ARCHIVO:/ruta FIN_ARCHIVO."
+Completadas 3 subtareas. Agentes: frontend, qa, reviewer.
+<!-- FIN ACTUALIZACIÓN -->
+
+
+<!-- ACTUALIZACIÓN 2026-06-07 -->
+## Sesión 2026-06-07 — "undefined"
+Completadas 4 subtareas. Agentes: backend, frontend, qa, reviewer.
+<!-- FIN ACTUALIZACIÓN -->
+
 ## ⚠️ PENDIENTE
 
 ### Alta prioridad
