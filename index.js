@@ -15,7 +15,7 @@ const PROJECTS_PATH = path.join(__dirname, 'projects');
 const PORT = process.env.PORT || 3001;
 const cola = new Map();
 
-const anthropic = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY || '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' });
+const anthropic = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY || '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' || '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' });
 
 function autenticar(req, res, next) {
   const secret = req.headers['x-secret'];
