@@ -6,608 +6,133 @@
   <title>Kensei Dashboard</title>
   <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Rajdhani', sans-serif; font-size: 15px; background: #080c10; color: #e8eef5; overflow-x: hidden; }
 
-    body {
-      font-family: 'Rajdhani', sans-serif;
-      font-size: 15px;
-      background: #080c10;
-      color: #e8eef5;
-      overflow-x: hidden;
-    }
+    .navbar { background: linear-gradient(135deg, #0d1117 0%, #1a1f26 100%); border-bottom: 2px solid #2a3f5f; padding: 0.8rem 2rem; display: flex; justify-content: space-between; align-items: center; }
+    .navbar-brand { font-size: 1.8rem; font-weight: 700; color: #4a8ab8; text-transform: uppercase; letter-spacing: 3px; }
+    .navbar-actions { display: flex; gap: 0.8rem; align-items: center; }
 
-    .navbar {
-      background: linear-gradient(135deg, #0d1117 0%, #1a1f26 100%);
-      border-bottom: 2px solid #2a3f5f;
-      padding: 0.8rem 2rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
+    .btn-chat { background: linear-gradient(135deg, #4a8ab8 0%, #2a5f8f 100%); color: white; border: none; padding: 0.6rem 1.2rem; border-radius: 6px; cursor: pointer; font-family: 'Rajdhani', sans-serif; font-size: 15px; font-weight: 600; transition: all 0.3s ease; }
+    .btn-chat:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(74,138,184,0.4); }
+    .btn-design { background: linear-gradient(135deg, #8F2FFE 0%, #DF53FE 100%); color: white; border: none; padding: 0.6rem 1.2rem; border-radius: 6px; cursor: pointer; font-family: 'Rajdhani', sans-serif; font-size: 15px; font-weight: 600; transition: all 0.3s ease; }
+    .btn-design:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(143,47,254,0.4); }
 
-    .navbar-brand {
-      font-size: 1.8rem;
-      font-weight: 700;
-      color: #4a8ab8;
-      text-transform: uppercase;
-      letter-spacing: 3px;
-    }
-
-    .navbar-actions {
-      display: flex;
-      gap: 1rem;
-      align-items: center;
-    }
-
-    .btn-chat {
-      background: linear-gradient(135deg, #4a8ab8 0%, #2a5f8f 100%);
-      color: white;
-      border: none;
-      padding: 0.6rem 1.2rem;
-      border-radius: 6px;
-      cursor: pointer;
-      font-family: 'Rajdhani', sans-serif;
-      font-size: 15px;
-      font-weight: 600;
-      transition: all 0.3s ease;
-    }
-
-    .btn-chat:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 4px 12px rgba(74, 138, 184, 0.4);
-    }
-
-    .container {
-      display: flex;
-      min-height: calc(100vh - 60px);
-    }
-
-    .sidebar {
-      width: 280px;
-      background: #0d1117;
-      border-right: 1px solid #1a1f26;
-      padding: 1.5rem;
-      overflow-y: auto;
-    }
-
-    .sidebar-section {
-      margin-bottom: 2rem;
-    }
-
-    .sidebar-title {
-      font-size: 0.85rem;
-      text-transform: uppercase;
-      color: #4a8ab8;
-      letter-spacing: 2px;
-      margin-bottom: 1rem;
-      font-weight: 600;
-    }
-
-    .project-item {
-      padding: 0.6rem 0.8rem;
-      margin-bottom: 0.5rem;
-      background: #151a21;
-      border-radius: 6px;
-      cursor: pointer;
-      transition: all 0.2s;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    .project-item:hover {
-      background: #1a2028;
-      transform: translateX(4px);
-    }
-
-    .badge {
-      padding: 0.2rem 0.6rem;
-      border-radius: 12px;
-      font-size: 0.7rem;
-      font-weight: 600;
-    }
-
+    .container { display: flex; min-height: calc(100vh - 60px); }
+    .sidebar { width: 280px; background: #0d1117; border-right: 1px solid #1a1f26; padding: 1.5rem; overflow-y: auto; }
+    .sidebar-section { margin-bottom: 2rem; }
+    .sidebar-title { font-size: 0.85rem; text-transform: uppercase; color: #4a8ab8; letter-spacing: 2px; margin-bottom: 1rem; font-weight: 600; }
+    .project-item { padding: 0.6rem 0.8rem; margin-bottom: 0.5rem; background: #151a21; border-radius: 6px; cursor: pointer; transition: all 0.2s; display: flex; justify-content: space-between; align-items: center; }
+    .project-item:hover { background: #1a2028; transform: translateX(4px); }
+    .badge { padding: 0.2rem 0.6rem; border-radius: 12px; font-size: 0.7rem; font-weight: 600; }
     .badge-blue { background: #4a8ab8; color: white; }
     .badge-purple { background: #8F2FFE; color: white; }
     .badge-green { background: #2ecc71; color: white; }
+    .agent-row { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+    .agent-badge { padding: 0.4rem 0.8rem; background: #1a1f26; border: 1px solid #2a3f5f; border-radius: 6px; font-family: 'Share Tech Mono', monospace; font-size: 0.85rem; color: #4a8ab8; }
 
-    .agent-row {
-      display: flex;
-      gap: 0.5rem;
-      flex-wrap: wrap;
-    }
-
-    .agent-badge {
-      padding: 0.4rem 0.8rem;
-      background: #1a1f26;
-      border: 1px solid #2a3f5f;
-      border-radius: 6px;
-      font-family: 'Share Tech Mono', monospace;
-      font-size: 0.85rem;
-      color: #4a8ab8;
-    }
-
-    .main-content {
-      flex: 1;
-      padding: 2rem;
-      overflow-y: auto;
-    }
-
-    .status-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 220px));
-      gap: 1rem;
-      margin-bottom: 2rem;
-    }
-
-    .status-card {
-      background: linear-gradient(135deg, #151a21 0%, #1a1f26 100%);
-      border: 1px solid #2a3f5f;
-      border-radius: 8px;
-      padding: 1.2rem;
-      max-width: 220px;
-    }
-
-    .status-label {
-      font-size: 0.85rem;
-      color: #6b7a8f;
-      margin-bottom: 0.5rem;
-    }
-
-    .status-value {
-      font-size: 1.8rem;
-      font-weight: 700;
-      color: #4a8ab8;
-      font-family: 'Share Tech Mono', monospace;
-    }
-
-    .services-row {
-      display: flex;
-      gap: 1rem;
-      margin-bottom: 2rem;
-      flex-wrap: wrap;
-    }
-
-    .service-badge {
-      padding: 0.6rem 1rem;
-      background: #151a21;
-      border: 1px solid #2a3f5f;
-      border-radius: 6px;
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-    }
-
-    .status-dot {
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-    }
-
+    .main-content { flex: 1; padding: 2rem; overflow-y: auto; }
+    .status-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 220px)); gap: 1rem; margin-bottom: 2rem; }
+    .status-card { background: linear-gradient(135deg, #151a21 0%, #1a1f26 100%); border: 1px solid #2a3f5f; border-radius: 8px; padding: 1.2rem; max-width: 220px; }
+    .status-label { font-size: 0.85rem; color: #6b7a8f; margin-bottom: 0.5rem; }
+    .status-value { font-size: 1.8rem; font-weight: 700; color: #4a8ab8; font-family: 'Share Tech Mono', monospace; }
+    .services-row { display: flex; gap: 1rem; margin-bottom: 2rem; flex-wrap: wrap; }
+    .service-badge { padding: 0.6rem 1rem; background: #151a21; border: 1px solid #2a3f5f; border-radius: 6px; display: flex; align-items: center; gap: 0.5rem; }
+    .status-dot { width: 8px; height: 8px; border-radius: 50%; }
     .status-ok { background: #2ecc71; }
     .status-warn { background: #f39c12; }
-    .status-error { background: #e74c3c; }
-
-    .section-title {
-      font-size: 1.4rem;
-      font-weight: 700;
-      color: #4a8ab8;
-      margin-bottom: 1.5rem;
-      text-transform: uppercase;
-      letter-spacing: 2px;
-    }
-
-    .mission-form {
-      background: #151a21;
-      border: 1px solid #2a3f5f;
-      border-radius: 8px;
-      padding: 1.5rem;
-      margin-bottom: 2rem;
-    }
-
-    .form-row {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 1rem;
-      margin-bottom: 1rem;
-    }
-
-    .form-group {
-      display: flex;
-      flex-direction: column;
-    }
-
-    .form-label {
-      font-size: 0.9rem;
-      color: #6b7a8f;
-      margin-bottom: 0.4rem;
-      font-weight: 600;
-    }
-
-    .form-input, .form-select, .form-textarea {
-      background: #0d1117;
-      border: 1px solid #2a3f5f;
-      color: #e8eef5;
-      padding: 0.6rem;
-      border-radius: 6px;
-      font-family: 'Rajdhani', sans-serif;
-      font-size: 15px;
-    }
-
-    .form-textarea {
-      min-height: 100px;
-      resize: vertical;
-    }
-
-    .btn-execute {
-      background: linear-gradient(135deg, #8F2FFE 0%, #DF53FE 100%);
-      color: white;
-      border: none;
-      padding: 0.8rem 1.5rem;
-      border-radius: 6px;
-      cursor: pointer;
-      font-family: 'Rajdhani', sans-serif;
-      font-size: 15px;
-      font-weight: 600;
-      margin-top: 1rem;
-      transition: all 0.3s ease;
-    }
-
-    .btn-execute:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 4px 12px rgba(143, 47, 254, 0.4);
-    }
-
-    .missions-log {
-      background: #0d1117;
-      border: 1px solid #2a3f5f;
-      border-radius: 8px;
-      padding: 1.5rem;
-      max-height: 500px;
-      overflow-y: auto;
-    }
-
-    .mission-item {
-      background: #151a21;
-      border-left: 3px solid #4a8ab8;
-      padding: 1rem;
-      margin-bottom: 1rem;
-      border-radius: 4px;
-    }
-
-    .mission-header {
-      display: flex;
-      justify-content: space-between;
-      margin-bottom: 0.5rem;
-    }
-
-    .mission-id {
-      font-family: 'Share Tech Mono', monospace;
-      color: #4a8ab8;
-      font-weight: 600;
-    }
-
-    .mission-status {
-      padding: 0.2rem 0.6rem;
-      border-radius: 4px;
-      font-size: 0.75rem;
-      font-weight: 600;
-    }
-
+    .section-title { font-size: 1.4rem; font-weight: 700; color: #4a8ab8; margin-bottom: 1.5rem; text-transform: uppercase; letter-spacing: 2px; }
+    .mission-form { background: #151a21; border: 1px solid #2a3f5f; border-radius: 8px; padding: 1.5rem; margin-bottom: 2rem; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem; }
+    .form-group { display: flex; flex-direction: column; }
+    .form-label { font-size: 0.9rem; color: #6b7a8f; margin-bottom: 0.4rem; font-weight: 600; }
+    .form-input, .form-select, .form-textarea { background: #0d1117; border: 1px solid #2a3f5f; color: #e8eef5; padding: 0.6rem; border-radius: 6px; font-family: 'Rajdhani', sans-serif; font-size: 15px; }
+    .form-textarea { min-height: 100px; resize: vertical; }
+    .btn-execute { background: linear-gradient(135deg, #8F2FFE 0%, #DF53FE 100%); color: white; border: none; padding: 0.8rem 1.5rem; border-radius: 6px; cursor: pointer; font-family: 'Rajdhani', sans-serif; font-size: 15px; font-weight: 600; margin-top: 1rem; transition: all 0.3s ease; }
+    .btn-execute:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(143,47,254,0.4); }
+    .missions-log { background: #0d1117; border: 1px solid #2a3f5f; border-radius: 8px; padding: 1.5rem; max-height: 500px; overflow-y: auto; }
+    .mission-item { background: #151a21; border-left: 3px solid #4a8ab8; padding: 1rem; margin-bottom: 1rem; border-radius: 4px; }
+    .mission-header { display: flex; justify-content: space-between; margin-bottom: 0.5rem; }
+    .mission-id { font-family: 'Share Tech Mono', monospace; color: #4a8ab8; font-weight: 600; }
+    .mission-status { padding: 0.2rem 0.6rem; border-radius: 4px; font-size: 0.75rem; font-weight: 600; }
     .status-pending { background: #f39c12; color: white; }
     .status-running { background: #3498db; color: white; }
     .status-completed { background: #2ecc71; color: white; }
     .status-error { background: #e74c3c; color: white; }
 
-    /* Chat Modal Styles */
-    .chat-modal {
-      display: none;
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0, 0, 0, 0.85);
-      z-index: 1000;
-      align-items: center;
-      justify-content: center;
-    }
+    /* MODALES */
+    .chat-modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); z-index: 1000; align-items: center; justify-content: center; }
+    .chat-modal.active { display: flex; }
+    .chat-container { width: 90%; max-width: 800px; height: 85vh; background: #0d1117; border: 2px solid #2a3f5f; border-radius: 12px; display: flex; flex-direction: column; overflow: hidden; }
+    .chat-container.design-container { border-color: #8F2FFE; }
 
-    .chat-modal.active {
-      display: flex;
-    }
+    .chat-header { background: linear-gradient(135deg, #1a1f26 0%, #0d1117 100%); border-bottom: 2px solid #2a3f5f; padding: 1rem 1.5rem; display: flex; justify-content: space-between; align-items: center; }
+    .design-container .chat-header { border-bottom-color: #8F2FFE; }
+    .chat-title { font-size: 1.4rem; font-weight: 700; color: #4a8ab8; display: flex; align-items: center; gap: 0.5rem; }
+    .design-container .chat-title { color: #DF53FE; }
+    .btn-close-chat { background: transparent; border: none; color: #e8eef5; font-size: 1.5rem; cursor: pointer; padding: 0.2rem 0.6rem; transition: all 0.2s; }
+    .btn-close-chat:hover { color: #e74c3c; }
 
-    .chat-container {
-      width: 90%;
-      max-width: 800px;
-      height: 80vh;
-      background: #0d1117;
-      border: 2px solid #2a3f5f;
-      border-radius: 12px;
-      display: flex;
-      flex-direction: column;
-      overflow: hidden;
-    }
+    /* SKILLS PANEL (solo design) */
+    .skills-panel { background: #0a0e14; border-bottom: 1px solid #3a1f6e; padding: 0.8rem 1.5rem; }
+    .skills-title { font-size: 0.8rem; text-transform: uppercase; color: #8F2FFE; letter-spacing: 2px; margin-bottom: 0.6rem; font-weight: 600; }
+    .skills-input-row { display: flex; gap: 0.5rem; margin-bottom: 0.6rem; }
+    .skills-input { flex: 1; background: #0d1117; border: 1px solid #3a1f6e; color: #e8eef5; padding: 0.4rem 0.8rem; border-radius: 6px; font-family: 'Share Tech Mono', monospace; font-size: 12px; }
+    .btn-add-skill { background: #8F2FFE; color: white; border: none; padding: 0.4rem 0.8rem; border-radius: 6px; cursor: pointer; font-size: 12px; font-family: 'Rajdhani', sans-serif; font-weight: 600; white-space: nowrap; }
+    .btn-add-skill:hover { background: #DF53FE; }
+    .skills-list { display: flex; flex-wrap: wrap; gap: 0.4rem; max-height: 60px; overflow-y: auto; }
+    .skill-tag { background: #1a0a30; border: 1px solid #3a1f6e; color: #DF53FE; padding: 0.2rem 0.6rem; border-radius: 4px; font-size: 11px; font-family: 'Share Tech Mono', monospace; display: flex; align-items: center; gap: 0.4rem; }
+    .skill-tag button { background: none; border: none; color: #e74c3c; cursor: pointer; font-size: 10px; padding: 0; }
 
-    .chat-header {
-      background: linear-gradient(135deg, #1a1f26 0%, #0d1117 100%);
-      border-bottom: 2px solid #2a3f5f;
-      padding: 1rem 1.5rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
+    .chat-messages { flex: 1; overflow-y: auto; padding: 1.5rem; display: flex; flex-direction: column; gap: 1rem; }
+    .chat-message { display: flex; gap: 0.8rem; max-width: 80%; }
+    .chat-message.user { align-self: flex-end; flex-direction: row-reverse; }
+    .message-bubble { background: #1a1f26; padding: 0.8rem 1.2rem; border-radius: 12px; font-size: 15px; line-height: 1.5; white-space: pre-wrap; }
+    .chat-message.user .message-bubble { background: #8F2FFE; color: white; }
+    .chat-modal:not(#designModal) .chat-message.user .message-bubble { background: #2a5f8f; }
+    .message-sender { font-size: 0.75rem; color: #6b7a8f; margin-bottom: 0.3rem; font-weight: 600; }
+    .message-timestamp { font-size: 0.7rem; color: #4a5866; margin-top: 0.3rem; font-family: 'Share Tech Mono', monospace; }
+    .message-image { max-width: 100%; border-radius: 8px; margin-top: 0.5rem; border: 1px solid #2a3f5f; }
 
-    .chat-title {
-      font-size: 1.4rem;
-      font-weight: 700;
-      color: #4a8ab8;
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-    }
+    /* Historial badge */
+    .history-bar { padding: 0.4rem 1.5rem; background: #0a0e14; border-bottom: 1px solid #1a1f26; display: flex; justify-content: space-between; align-items: center; }
+    .history-info { font-size: 0.75rem; color: #4a5866; font-family: 'Share Tech Mono', monospace; }
+    .btn-clear-history { background: none; border: 1px solid #2a3f5f; color: #6b7a8f; padding: 0.2rem 0.6rem; border-radius: 4px; cursor: pointer; font-size: 11px; font-family: 'Rajdhani', sans-serif; }
+    .btn-clear-history:hover { border-color: #e74c3c; color: #e74c3c; }
 
-    .btn-close-chat {
-      background: transparent;
-      border: none;
-      color: #e8eef5;
-      font-size: 1.5rem;
-      cursor: pointer;
-      padding: 0.2rem 0.6rem;
-      transition: all 0.2s;
-    }
+    .chat-input-area { background: #151a21; border-top: 2px solid #2a3f5f; padding: 1rem 1.5rem; display: flex; gap: 0.8rem; align-items: flex-end; }
+    .design-container .chat-input-area { border-top-color: #3a1f6e; }
+    .image-preview-container { position: relative; display: inline-block; margin-bottom: 0.5rem; }
+    .image-preview { max-width: 120px; max-height: 120px; border-radius: 6px; border: 2px solid #2a3f5f; }
+    .btn-remove-image { position: absolute; top: -8px; right: -8px; background: #e74c3c; color: white; border: none; border-radius: 50%; width: 24px; height: 24px; cursor: pointer; font-size: 0.8rem; display: flex; align-items: center; justify-content: center; }
+    .btn-upload { background: #2a3f5f; color: #e8eef5; border: none; padding: 0.8rem 1rem; border-radius: 6px; cursor: pointer; font-size: 1.2rem; transition: all 0.2s; }
+    .btn-upload:hover { background: #3a5f8f; }
+    .chat-input-wrapper { flex: 1; display: flex; flex-direction: column; }
+    .chat-input { background: #0d1117; border: 1px solid #2a3f5f; color: #e8eef5; padding: 0.8rem 1rem; border-radius: 6px; font-family: 'Rajdhani', sans-serif; font-size: 15px; resize: none; min-height: 60px; max-height: 120px; }
+    .btn-send { background: linear-gradient(135deg, #4a8ab8 0%, #2a5f8f 100%); color: white; border: none; padding: 0.8rem 1.5rem; border-radius: 6px; cursor: pointer; font-family: 'Rajdhani', sans-serif; font-size: 15px; font-weight: 600; transition: all 0.3s ease; }
+    .design-container .btn-send { background: linear-gradient(135deg, #8F2FFE 0%, #DF53FE 100%); }
+    .btn-send:hover { transform: translateY(-2px); }
+    .btn-send:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
 
-    .btn-close-chat:hover {
-      color: #e74c3c;
-    }
+    .typing-indicator { display: none; align-items: center; gap: 0.4rem; padding: 0.8rem 1.2rem; background: #1a1f26; border-radius: 12px; max-width: 80px; margin: 0 1.5rem 1rem; }
+    .typing-indicator.active { display: flex; }
+    .typing-dot { width: 8px; height: 8px; background: #4a8ab8; border-radius: 50%; animation: typing 1.4s infinite; }
+    .typing-dot:nth-child(2) { animation-delay: 0.2s; }
+    .typing-dot:nth-child(3) { animation-delay: 0.4s; }
+    @keyframes typing { 0%, 60%, 100% { opacity: 0.3; transform: translateY(0); } 30% { opacity: 1; transform: translateY(-8px); } }
 
-    .chat-agent-selector {
-      padding: 0.8rem 1.5rem;
-      background: #151a21;
-      border-bottom: 1px solid #2a3f5f;
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-    }
-
-    .agent-select-label {
-      font-size: 0.9rem;
-      color: #6b7a8f;
-      font-weight: 600;
-    }
-
-    .agent-select {
-      background: #0d1117;
-      border: 1px solid #2a3f5f;
-      color: #e8eef5;
-      padding: 0.5rem 1rem;
-      border-radius: 6px;
-      font-family: 'Rajdhani', sans-serif;
-      font-size: 15px;
-      cursor: pointer;
-    }
-
-    .chat-messages {
-      flex: 1;
-      overflow-y: auto;
-      padding: 1.5rem;
-      display: flex;
-      flex-direction: column;
-      gap: 1rem;
-    }
-
-    .chat-message {
-      display: flex;
-      gap: 0.8rem;
-      max-width: 80%;
-    }
-
-    .chat-message.user {
-      align-self: flex-end;
-      flex-direction: row-reverse;
-    }
-
-    .message-bubble {
-      background: #1a1f26;
-      padding: 0.8rem 1.2rem;
-      border-radius: 12px;
-      font-size: 15px;
-      line-height: 1.5;
-    }
-
-    .chat-message.user .message-bubble {
-      background: #8F2FFE;
-      color: white;
-    }
-
-    .message-sender {
-      font-size: 0.75rem;
-      color: #6b7a8f;
-      margin-bottom: 0.3rem;
-      font-weight: 600;
-    }
-
-    .message-image {
-      max-width: 100%;
-      border-radius: 8px;
-      margin-top: 0.5rem;
-      border: 1px solid #2a3f5f;
-    }
-
-    .message-timestamp {
-      font-size: 0.7rem;
-      color: #4a5866;
-      margin-top: 0.3rem;
-      font-family: 'Share Tech Mono', monospace;
-    }
-
-    .chat-input-area {
-      background: #151a21;
-      border-top: 2px solid #2a3f5f;
-      padding: 1rem 1.5rem;
-      display: flex;
-      gap: 0.8rem;
-      align-items: flex-end;
-    }
-
-    .image-preview-container {
-      position: relative;
-      display: inline-block;
-      margin-bottom: 0.5rem;
-    }
-
-    .image-preview {
-      max-width: 120px;
-      max-height: 120px;
-      border-radius: 6px;
-      border: 2px solid #2a3f5f;
-    }
-
-    .btn-remove-image {
-      position: absolute;
-      top: -8px;
-      right: -8px;
-      background: #e74c3c;
-      color: white;
-      border: none;
-      border-radius: 50%;
-      width: 24px;
-      height: 24px;
-      cursor: pointer;
-      font-size: 0.8rem;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .btn-upload {
-      background: #2a3f5f;
-      color: #e8eef5;
-      border: none;
-      padding: 0.8rem 1rem;
-      border-radius: 6px;
-      cursor: pointer;
-      font-size: 1.2rem;
-      transition: all 0.2s;
-    }
-
-    .btn-upload:hover {
-      background: #3a5f8f;
-    }
-
-    .chat-input-wrapper {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-    }
-
-    .chat-input {
-      background: #0d1117;
-      border: 1px solid #2a3f5f;
-      color: #e8eef5;
-      padding: 0.8rem 1rem;
-      border-radius: 6px;
-      font-family: 'Rajdhani', sans-serif;
-      font-size: 15px;
-      resize: none;
-      min-height: 60px;
-      max-height: 120px;
-    }
-
-    .btn-send {
-      background: linear-gradient(135deg, #4a8ab8 0%, #2a5f8f 100%);
-      color: white;
-      border: none;
-      padding: 0.8rem 1.5rem;
-      border-radius: 6px;
-      cursor: pointer;
-      font-family: 'Rajdhani', sans-serif;
-      font-size: 15px;
-      font-weight: 600;
-      transition: all 0.3s ease;
-    }
-
-    .btn-send:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 4px 12px rgba(74, 138, 184, 0.4);
-    }
-
-    .btn-send:disabled {
-      opacity: 0.5;
-      cursor: not-allowed;
-      transform: none;
-    }
-
-    /* Scrollbar personalizado */
-    ::-webkit-scrollbar {
-      width: 8px;
-      height: 8px;
-    }
-
-    ::-webkit-scrollbar-track {
-      background: #0d1117;
-    }
-
-    ::-webkit-scrollbar-thumb {
-      background: #2a3f5f;
-      border-radius: 4px;
-    }
-
-    ::-webkit-scrollbar-thumb:hover {
-      background: #4a8ab8;
-    }
-
-    .typing-indicator {
-      display: none;
-      align-items: center;
-      gap: 0.4rem;
-      padding: 0.8rem 1.2rem;
-      background: #1a1f26;
-      border-radius: 12px;
-      max-width: 80px;
-    }
-
-    .typing-indicator.active {
-      display: flex;
-    }
-
-    .typing-dot {
-      width: 8px;
-      height: 8px;
-      background: #4a8ab8;
-      border-radius: 50%;
-      animation: typing 1.4s infinite;
-    }
-
-    .typing-dot:nth-child(2) {
-      animation-delay: 0.2s;
-    }
-
-    .typing-dot:nth-child(3) {
-      animation-delay: 0.4s;
-    }
-
-    @keyframes typing {
-      0%, 60%, 100% {
-        opacity: 0.3;
-        transform: translateY(0);
-      }
-      30% {
-        opacity: 1;
-        transform: translateY(-8px);
-      }
-    }
+    ::-webkit-scrollbar { width: 8px; height: 8px; }
+    ::-webkit-scrollbar-track { background: #0d1117; }
+    ::-webkit-scrollbar-thumb { background: #2a3f5f; border-radius: 4px; }
+    ::-webkit-scrollbar-thumb:hover { background: #4a8ab8; }
   </style>
 </head>
 <body>
   <div class="navbar">
     <div class="navbar-brand">⚡ KENSEI</div>
     <div class="navbar-actions">
-      <button class="btn-chat" onclick="toggleChat()">💬 Chat</button>
+      <button class="btn-chat" onclick="openModal('chatModal')">💬 Orquestador</button>
+      <button class="btn-design" onclick="openModal('designModal')">🎨 Design Agent</button>
     </div>
   </div>
 
@@ -615,37 +140,18 @@
     <aside class="sidebar">
       <div class="sidebar-section">
         <div class="sidebar-title">Proyectos</div>
-        <div class="project-item">
-          <span>Kensei</span>
-          <span class="badge badge-blue">Core</span>
-        </div>
-        <div class="project-item">
-          <span>Zebrano</span>
-          <span class="badge badge-purple">60%</span>
-        </div>
-        <div class="project-item">
-          <span>Theron</span>
-          <span class="badge badge-green">95%</span>
-        </div>
-        <div class="project-item">
-          <span>VETCOM</span>
-          <span class="badge">0%</span>
-        </div>
-        <div class="project-item">
-          <span>Inteltech</span>
-          <span class="badge">0%</span>
-        </div>
+        <div class="project-item"><span>Kensei</span><span class="badge badge-blue">Core</span></div>
+        <div class="project-item"><span>Zebrano</span><span class="badge badge-purple">60%</span></div>
+        <div class="project-item"><span>Theron</span><span class="badge badge-green">95%</span></div>
+        <div class="project-item"><span>VETCOM</span><span class="badge">0%</span></div>
+        <div class="project-item"><span>Inteltech</span><span class="badge">0%</span></div>
       </div>
-
       <div class="sidebar-section">
         <div class="sidebar-title">Agentes</div>
         <div class="agent-row">
-          <div class="agent-badge">PL</div>
-          <div class="agent-badge">BE</div>
-          <div class="agent-badge">FE</div>
-          <div class="agent-badge">QA</div>
-          <div class="agent-badge">RV</div>
-          <div class="agent-badge">DS</div>
+          <div class="agent-badge">PL</div><div class="agent-badge">BE</div>
+          <div class="agent-badge">FE</div><div class="agent-badge">QA</div>
+          <div class="agent-badge">RV</div><div class="agent-badge">DS</div>
         </div>
       </div>
     </aside>
@@ -653,50 +159,20 @@
     <main class="main-content">
       <h2 class="section-title">Estado del sistema</h2>
       <div class="status-grid">
-        <div class="status-card">
-          <div class="status-label">VPS Uptime</div>
-          <div class="status-value">99.9%</div>
-        </div>
-        <div class="status-card">
-          <div class="status-label">Disco usado</div>
-          <div class="status-value">53%</div>
-        </div>
-        <div class="status-card">
-          <div class="status-label">RAM</div>
-          <div class="status-value">21%</div>
-        </div>
-        <div class="status-card">
-          <div class="status-label">API Tokens</div>
-          <div class="status-value">OK</div>
-        </div>
+        <div class="status-card"><div class="status-label">VPS Uptime</div><div class="status-value">99.9%</div></div>
+        <div class="status-card"><div class="status-label">Disco usado</div><div class="status-value">53%</div></div>
+        <div class="status-card"><div class="status-label">RAM</div><div class="status-value">21%</div></div>
+        <div class="status-card"><div class="status-label">API Tokens</div><div class="status-value">OK</div></div>
       </div>
 
       <h2 class="section-title">Servicios</h2>
       <div class="services-row">
-        <div class="service-badge">
-          <span class="status-dot status-ok"></span>
-          <span>n8n</span>
-        </div>
-        <div class="service-badge">
-          <span class="status-dot status-ok"></span>
-          <span>Supabase Zebrano</span>
-        </div>
-        <div class="service-badge">
-          <span class="status-dot status-ok"></span>
-          <span>Supabase Alfred</span>
-        </div>
-        <div class="service-badge">
-          <span class="status-dot status-ok"></span>
-          <span>Vercel</span>
-        </div>
-        <div class="service-badge">
-          <span class="status-dot status-ok"></span>
-          <span>Anthropic</span>
-        </div>
-        <div class="service-badge">
-          <span class="status-dot status-warn"></span>
-          <span>TikTok</span>
-        </div>
+        <div class="service-badge"><span class="status-dot status-ok"></span><span>n8n</span></div>
+        <div class="service-badge"><span class="status-dot status-ok"></span><span>Supabase Zebrano</span></div>
+        <div class="service-badge"><span class="status-dot status-ok"></span><span>Supabase Alfred</span></div>
+        <div class="service-badge"><span class="status-dot status-ok"></span><span>Vercel</span></div>
+        <div class="service-badge"><span class="status-dot status-ok"></span><span>Anthropic</span></div>
+        <div class="service-badge"><span class="status-dot status-warn"></span><span>TikTok</span></div>
       </div>
 
       <h2 class="section-title">Nueva misión</h2>
@@ -726,279 +202,340 @@
 
       <h2 class="section-title">Registro de misiones</h2>
       <div class="missions-log" id="missionsLog">
-        <div class="mission-item">
-          <div class="mission-header">
-            <span class="mission-id">No hay misiones registradas</span>
-          </div>
-        </div>
+        <div class="mission-item"><div class="mission-header"><span class="mission-id">No hay misiones registradas</span></div></div>
       </div>
     </main>
   </div>
 
-  <!-- Chat Modal -->
+  <!-- MODAL ORQUESTADOR -->
   <div class="chat-modal" id="chatModal">
     <div class="chat-container">
       <div class="chat-header">
-        <div class="chat-title">
-          💬 Chat con Kensei
-        </div>
-        <button class="btn-close-chat" onclick="toggleChat()">✕</button>
+        <div class="chat-title">💬 Orquestador General</div>
+        <button class="btn-close-chat" onclick="closeModal('chatModal')">✕</button>
       </div>
-
-      <div class="chat-agent-selector">
-        <span class="agent-select-label">Hablar con:</span>
-        <select class="agent-select" id="chatAgentSelect">
-          <option value="orquestador">🎯 General (Orquestador)</option>
-          <option value="design">🎨 Design Agent</option>
-        </select>
+      <div class="history-bar">
+        <span class="history-info" id="chatHistoryInfo">— mensajes en historial</span>
+        <button class="btn-clear-history" onclick="clearHistory('chat')">Limpiar historial</button>
       </div>
-
-      <div class="chat-messages" id="chatMessages">
-        <div class="chat-message">
-          <div>
-            <div class="message-sender">Kensei AI</div>
-            <div class="message-bubble">
-              Hola! Soy Kensei, el sistema operativo de IA del holding. Puedo ayudarte con desarrollo, diseño, análisis y gestión de proyectos. ¿En qué puedo ayudarte?
-            </div>
-            <div class="message-timestamp">${new Date().toLocaleTimeString()}</div>
-          </div>
-        </div>
+      <div class="chat-messages" id="chatMessages"></div>
+      <div class="typing-indicator" id="chatTyping">
+        <div class="typing-dot"></div><div class="typing-dot"></div><div class="typing-dot"></div>
       </div>
-
       <div class="chat-input-area">
-        <input type="file" id="imageUpload" accept="image/*" style="display: none;" onchange="handleImageUpload(event)">
-        <button class="btn-upload" onclick="document.getElementById('imageUpload').click()">📷</button>
-        
+        <input type="file" id="chatImageUpload" accept="image/*" style="display:none" onchange="handleImageUpload(event,'chat')">
+        <button class="btn-upload" onclick="document.getElementById('chatImageUpload').click()">📷</button>
         <div class="chat-input-wrapper">
-          <div id="imagePreviewContainer"></div>
-          <textarea class="chat-input" id="chatInput" placeholder="Escribe tu mensaje..." onkeydown="handleChatKeydown(event)"></textarea>
+          <div id="chatImagePreview"></div>
+          <textarea class="chat-input" id="chatInput" placeholder="Escribe tu mensaje..." onkeydown="handleKeydown(event,'chat')"></textarea>
         </div>
+        <button class="btn-send" id="chatBtnSend" onclick="enviarMensaje('chat')">Enviar</button>
+      </div>
+    </div>
+  </div>
 
-        <button class="btn-send" id="btnSend" onclick="enviarMensajeChat()">Enviar</button>
+  <!-- MODAL DESIGN AGENT -->
+  <div class="chat-modal" id="designModal">
+    <div class="chat-container design-container">
+      <div class="chat-header">
+        <div class="chat-title">🎨 Design Agent</div>
+        <button class="btn-close-chat" onclick="closeModal('designModal')">✕</button>
       </div>
 
-      <div class="typing-indicator" id="typingIndicator">
-        <div class="typing-dot"></div>
-        <div class="typing-dot"></div>
-        <div class="typing-dot"></div>
+      <!-- SKILLS PANEL -->
+      <div class="skills-panel">
+        <div class="skills-title">⚡ Skills / Recursos</div>
+        <div class="skills-input-row">
+          <input class="skills-input" id="skillInput" placeholder="https://github.com/usuario/repo — URL de referencia o recurso de diseño" onkeydown="if(event.key==='Enter')addSkill()">
+          <button class="btn-add-skill" onclick="addSkill()">+ Agregar</button>
+        </div>
+        <div class="skills-list" id="skillsList"></div>
+      </div>
+
+      <div class="history-bar">
+        <span class="history-info" id="designHistoryInfo">— mensajes en historial</span>
+        <button class="btn-clear-history" onclick="clearHistory('design')">Limpiar historial</button>
+      </div>
+      <div class="chat-messages" id="designMessages"></div>
+      <div class="typing-indicator" id="designTyping">
+        <div class="typing-dot"></div><div class="typing-dot"></div><div class="typing-dot"></div>
+      </div>
+      <div class="chat-input-area">
+        <input type="file" id="designImageUpload" accept="image/*" style="display:none" onchange="handleImageUpload(event,'design')">
+        <button class="btn-upload" onclick="document.getElementById('designImageUpload').click()">📷</button>
+        <div class="chat-input-wrapper">
+          <div id="designImagePreview"></div>
+          <textarea class="chat-input" id="designInput" placeholder="Describe qué necesitás diseñar o analizá una imagen..." onkeydown="handleKeydown(event,'design')"></textarea>
+        </div>
+        <button class="btn-send" id="designBtnSend" onclick="enviarMensaje('design')">Enviar</button>
       </div>
     </div>
   </div>
 
   <script>
     const TOKEN = 'antigravity2026secret';
-    let currentImageBase64 = null;
+    const API = 'http://212.85.15.234:3001';
 
-    function toggleChat() {
-      const modal = document.getElementById('chatModal');
-      modal.classList.toggle('active');
-      if (modal.classList.contains('active')) {
-        document.getElementById('chatInput').focus();
+    // ── Estado por agente ──────────────────────────────
+    const state = {
+      chat: { image: null, history: [] },
+      design: { image: null, history: [], skills: [] }
+    };
+
+    // ── Persistencia localStorage ──────────────────────
+    function saveState() {
+      try {
+        localStorage.setItem('kensei_chat_history', JSON.stringify(state.chat.history));
+        localStorage.setItem('kensei_design_history', JSON.stringify(state.design.history));
+        localStorage.setItem('kensei_design_skills', JSON.stringify(state.design.skills));
+      } catch(e) {}
+    }
+
+    function loadState() {
+      try {
+        state.chat.history = JSON.parse(localStorage.getItem('kensei_chat_history') || '[]');
+        state.design.history = JSON.parse(localStorage.getItem('kensei_design_history') || '[]');
+        state.design.skills = JSON.parse(localStorage.getItem('kensei_design_skills') || '[]');
+      } catch(e) {}
+    }
+
+    // ── Modales ────────────────────────────────────────
+    function openModal(id) {
+      document.getElementById(id).classList.add('active');
+      const agent = id === 'chatModal' ? 'chat' : 'design';
+      renderHistory(agent);
+      updateHistoryInfo(agent);
+      if (id === 'designModal') renderSkills();
+      setTimeout(() => document.getElementById(agent === 'chat' ? 'chatInput' : 'designInput').focus(), 100);
+    }
+
+    function closeModal(id) {
+      document.getElementById(id).classList.remove('active');
+    }
+
+    // ── Historial ──────────────────────────────────────
+    function renderHistory(agent) {
+      const container = document.getElementById(agent === 'chat' ? 'chatMessages' : 'designMessages');
+      container.innerHTML = '';
+      if (state[agent].history.length === 0) {
+        const welcome = agent === 'chat'
+          ? 'Hola! Soy el Orquestador de Kensei. Gestionás proyectos: Zebrano, Theron, VETCOM, Inteltech. ¿En qué puedo ayudarte?'
+          : 'Hola! Soy el Design Agent. Puedo ayudarte con UI/UX, identidad visual, paletas de color y feedback de diseño. Podés cargar URLs de referencia en el panel de Skills arriba. ¿Qué necesitás diseñar?';
+        addBubble(agent, 'agent', welcome, agent === 'chat' ? 'Orquestador' : 'Design Agent', false);
+      } else {
+        state[agent].history.forEach(msg => {
+          addBubble(agent, msg.role, msg.text, msg.sender, false, msg.image, msg.timestamp);
+        });
+      }
+      scrollBottom(agent);
+    }
+
+    function updateHistoryInfo(agent) {
+      const count = state[agent].history.length;
+      document.getElementById(agent === 'chat' ? 'chatHistoryInfo' : 'designHistoryInfo').textContent =
+        `${count} mensaje${count !== 1 ? 's' : ''} en historial`;
+    }
+
+    function clearHistory(agent) {
+      if (!confirm('¿Limpiar todo el historial?')) return;
+      state[agent].history = [];
+      saveState();
+      renderHistory(agent);
+      updateHistoryInfo(agent);
+    }
+
+    function scrollBottom(agent) {
+      const c = document.getElementById(agent === 'chat' ? 'chatMessages' : 'designMessages');
+      setTimeout(() => c.scrollTop = c.scrollHeight, 50);
+    }
+
+    // ── Skills (Design Agent) ──────────────────────────
+    function renderSkills() {
+      const list = document.getElementById('skillsList');
+      list.innerHTML = '';
+      state.design.skills.forEach((skill, i) => {
+        const tag = document.createElement('div');
+        tag.className = 'skill-tag';
+        const label = skill.replace('https://github.com/', 'gh:').replace('https://', '');
+        tag.innerHTML = `<span title="${skill}">${label.substring(0,40)}${label.length>40?'…':''}</span><button onclick="removeSkill(${i})">✕</button>`;
+        list.appendChild(tag);
+      });
+    }
+
+    function addSkill() {
+      const input = document.getElementById('skillInput');
+      const url = input.value.trim();
+      if (!url) return;
+      if (!state.design.skills.includes(url)) {
+        state.design.skills.push(url);
+        saveState();
+        renderSkills();
+      }
+      input.value = '';
+    }
+
+    function removeSkill(i) {
+      state.design.skills.splice(i, 1);
+      saveState();
+      renderSkills();
+    }
+
+    // ── Chat ───────────────────────────────────────────
+    function handleKeydown(event, agent) {
+      if (event.key === 'Enter' && !event.shiftKey) {
+        event.preventDefault();
+        enviarMensaje(agent);
       }
     }
 
-    function handleImageUpload(event) {
+    function handleImageUpload(event, agent) {
       const file = event.target.files[0];
       if (!file) return;
-
       const reader = new FileReader();
-      reader.onload = function(e) {
-        const base64 = e.target.result.split(',')[1];
-        currentImageBase64 = base64;
-        
-        const previewContainer = document.getElementById('imagePreviewContainer');
-        previewContainer.innerHTML = `
-          <div class="image-preview-container">
-            <img src="${e.target.result}" class="image-preview" alt="Preview">
-            <button class="btn-remove-image" onclick="removeImage()">✕</button>
-          </div>
-        `;
+      reader.onload = (e) => {
+        state[agent].image = e.target.result.split(',')[1];
+        const preview = document.getElementById(agent === 'chat' ? 'chatImagePreview' : 'designImagePreview');
+        preview.innerHTML = `<div class="image-preview-container"><img src="${e.target.result}" class="image-preview"><button class="btn-remove-image" onclick="removeImage('${agent}')">✕</button></div>`;
       };
       reader.readAsDataURL(file);
     }
 
-    function removeImage() {
-      currentImageBase64 = null;
-      document.getElementById('imagePreviewContainer').innerHTML = '';
-      document.getElementById('imageUpload').value = '';
+    function removeImage(agent) {
+      state[agent].image = null;
+      document.getElementById(agent === 'chat' ? 'chatImagePreview' : 'designImagePreview').innerHTML = '';
+      document.getElementById(agent === 'chat' ? 'chatImageUpload' : 'designImageUpload').value = '';
     }
 
-    function handleChatKeydown(event) {
-      if (event.key === 'Enter' && !event.shiftKey) {
-        event.preventDefault();
-        enviarMensajeChat();
+    function addBubble(agent, role, text, sender, save=true, imageBase64=null, timestamp=null) {
+      const container = document.getElementById(agent === 'chat' ? 'chatMessages' : 'designMessages');
+      const ts = timestamp || new Date().toLocaleTimeString();
+
+      if (save) {
+        state[agent].history.push({ role, text, sender, image: imageBase64, timestamp: ts });
+        saveState();
+        updateHistoryInfo(agent);
       }
+
+      const div = document.createElement('div');
+      div.className = `chat-message ${role === 'user' ? 'user' : ''}`;
+      let imgHTML = imageBase64 ? `<img src="data:image/jpeg;base64,${imageBase64}" class="message-image">` : '';
+      div.innerHTML = `<div><div class="message-sender">${sender}</div><div class="message-bubble">${text}${imgHTML}</div><div class="message-timestamp">${ts}</div></div>`;
+      container.appendChild(div);
+      scrollBottom(agent);
     }
 
-    async function enviarMensajeChat() {
-      const input = document.getElementById('chatInput');
-      const mensaje = input.value.trim();
-      const agente = document.getElementById('chatAgentSelect').value;
-      const btnSend = document.getElementById('btnSend');
+    async function enviarMensaje(agent) {
+      const inputId = agent === 'chat' ? 'chatInput' : 'designInput';
+      const btnId = agent === 'chat' ? 'chatBtnSend' : 'designBtnSend';
+      const typingId = agent === 'chat' ? 'chatTyping' : 'designTyping';
 
+      const input = document.getElementById(inputId);
+      const mensaje = input.value.trim();
       if (!mensaje) return;
 
-      // Deshabilitar input
+      const imageBase64 = state[agent].image;
       input.disabled = true;
-      btnSend.disabled = true;
+      document.getElementById(btnId).disabled = true;
+      document.getElementById(typingId).classList.add('active');
 
-      // Agregar mensaje del usuario
-      agregarMensajeChat('user', mensaje, currentImageBase64);
-      
-      // Limpiar input
+      addBubble(agent, 'user', mensaje, 'Vos', true, imageBase64);
       input.value = '';
-      removeImage();
+      removeImage(agent);
 
-      // Mostrar typing indicator
-      const typingIndicator = document.getElementById('typingIndicator');
-      typingIndicator.classList.add('active');
+      // Construir contexto con historial (últimos 10 mensajes)
+      const historialAPI = state[agent].history.slice(-10).map(m => ({
+        role: m.role === 'user' ? 'user' : 'assistant',
+        content: m.text
+      }));
+
+      // Skills para design agent
+      let skillsContext = '';
+      if (agent === 'design' && state.design.skills.length > 0) {
+        skillsContext = '\n\nRecursos de referencia cargados por el usuario:\n' + state.design.skills.join('\n');
+      }
 
       try {
         const body = {
-          mensaje: mensaje,
-          proyecto: 'kensei',
-          agente_destino: agente
+          mensaje,
+          agente: agent === 'chat' ? 'general' : 'design',
+          historial: historialAPI,
+          skills_context: skillsContext
         };
+        if (imageBase64) body.imagen_base64 = imageBase64;
 
-        if (currentImageBase64) {
-          body.imagen_base64 = currentImageBase64;
-        }
-
-        const response = await fetch('http://212.85.15.234:3001/chat', {
+        const response = await fetch(`${API}/chat`, {
           method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'X-Secret': TOKEN
-          },
+          headers: { 'Content-Type': 'application/json', 'X-Secret': TOKEN },
           body: JSON.stringify(body)
         });
 
         const data = await response.json();
+        const senderName = agent === 'chat' ? 'Orquestador' : 'Design Agent';
 
         if (response.ok) {
-          const agentName = agente === 'design' ? 'Design Agent' : 'Orquestador';
-          agregarMensajeChat('agent', data.respuesta, null, agentName);
+          addBubble(agent, 'agent', data.respuesta, senderName, true);
         } else {
-          agregarMensajeChat('agent', `Error: ${data.error || 'Error desconocido'}`, null, 'Sistema');
+          addBubble(agent, 'agent', `Error: ${data.error || 'Error desconocido'}`, 'Sistema', true);
         }
-
-      } catch (error) {
-        console.error('Error enviando mensaje:', error);
-        agregarMensajeChat('agent', 'Error de conexión con el servidor', null, 'Sistema');
+      } catch(e) {
+        addBubble(agent, 'agent', 'Error de conexión con el servidor', 'Sistema', true);
       } finally {
-        // Ocultar typing indicator
-        typingIndicator.classList.remove('active');
-        
-        // Rehabilitar input
+        document.getElementById(typingId).classList.remove('active');
         input.disabled = false;
-        btnSend.disabled = false;
+        document.getElementById(btnId).disabled = false;
         input.focus();
       }
     }
 
-    function agregarMensajeChat(tipo, texto, imagenBase64 = null, sender = null) {
-      const container = document.getElementById('chatMessages');
-      const timestamp = new Date().toLocaleTimeString();
-      
-      const messageDiv = document.createElement('div');
-      messageDiv.className = `chat-message ${tipo}`;
-      
-      let senderName = sender;
-      if (!senderName) {
-        senderName = tipo === 'user' ? 'Tú' : 'Kensei AI';
-      }
-
-      let imageHTML = '';
-      if (imagenBase64) {
-        imageHTML = `<img src="data:image/jpeg;base64,${imagenBase64}" class="message-image" alt="Imagen adjunta">`;
-      }
-
-      messageDiv.innerHTML = `
-        <div>
-          <div class="message-sender">${senderName}</div>
-          <div class="message-bubble">
-            ${texto}
-            ${imageHTML}
-          </div>
-          <div class="message-timestamp">${timestamp}</div>
-        </div>
-      `;
-
-      container.appendChild(messageDiv);
-      container.scrollTop = container.scrollHeight;
-    }
-
+    // ── Misiones ───────────────────────────────────────
     async function ejecutarMision() {
       const proyecto = document.getElementById('proyecto').value;
       const tarea = document.getElementById('tarea').value;
       const token = document.getElementById('token').value;
-
-      if (!tarea) {
-        alert('Por favor ingresa una descripción de la tarea');
-        return;
-      }
-
+      if (!tarea) { alert('Por favor ingresa una descripción de la tarea'); return; }
       try {
-        const response = await fetch('http://212.85.15.234:3001/tarea', {
+        const response = await fetch(`${API}/tarea`, {
           method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'X-Secret': token
-          },
+          headers: { 'Content-Type': 'application/json', 'X-Secret': token },
           body: JSON.stringify({ proyecto, tarea })
         });
-
         const data = await response.json();
-
         if (response.ok) {
-          alert('Misión enviada correctamente: ' + data.jobId);
+          alert('Misión enviada: ' + data.jobId);
           document.getElementById('tarea').value = '';
           cargarMisiones();
         } else {
           alert('Error: ' + (data.error || 'Error desconocido'));
         }
-      } catch (error) {
-        console.error('Error:', error);
-        alert('Error de conexión con el servidor');
-      }
+      } catch(e) { alert('Error de conexión'); }
     }
 
     async function cargarMisiones() {
       try {
-        const response = await fetch('http://212.85.15.234:3001/jobs', {
-          headers: {
-            'X-Secret': TOKEN
-          }
-        });
-
+        const response = await fetch(`${API}/jobs`, { headers: { 'X-Secret': TOKEN } });
         const data = await response.json();
-
-        if (response.ok && data.jobs && data.jobs.length > 0) {
+        if (Array.isArray(data) && data.length > 0) {
           const log = document.getElementById('missionsLog');
           log.innerHTML = '';
-
-          data.jobs.slice(-10).reverse().forEach(job => {
-            const statusClass = `status-${job.status.toLowerCase().replace(' ', '-')}`;
+          data.slice(0, 10).forEach(job => {
             const item = document.createElement('div');
             item.className = 'mission-item';
+            const statusMap = { 'en_cola': 'status-pending', 'ejecutando': 'status-running', 'completado': 'status-completed', 'error': 'status-error' };
             item.innerHTML = `
               <div class="mission-header">
-                <span class="mission-id">${job.jobId}</span>
-                <span class="mission-status ${statusClass}">${job.status}</span>
+                <span class="mission-id">${job.id.substring(0,8)}…</span>
+                <span class="mission-status ${statusMap[job.status] || ''}">${job.status}</span>
               </div>
-              <div style="color: #6b7a8f; font-size: 0.9rem; margin-top: 0.5rem;">
-                ${job.tarea.substring(0, 100)}...
-              </div>
+              <div style="color:#6b7a8f;font-size:0.9rem;margin-top:0.5rem">[${job.proyecto}] ${(job.tarea||'').substring(0,100)}${(job.tarea||'').length>100?'…':''}</div>
             `;
             log.appendChild(item);
           });
         }
-      } catch (error) {
-        console.error('Error cargando misiones:', error);
-      }
+      } catch(e) {}
     }
 
-    // Cargar misiones al inicio
+    // ── Init ───────────────────────────────────────────
+    loadState();
     cargarMisiones();
     setInterval(cargarMisiones, 5000);
   </script>
