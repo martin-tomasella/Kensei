@@ -190,7 +190,7 @@
           </div>
           <div class="form-group">
             <label class="form-label">Token</label>
-            <input type="password" class="form-input" id="token" value="antigravity2026secret">
+            <input type="password" class="form-input" id="token" value="" placeholder="X-Secret">
           </div>
         </div>
         <div class="form-group">
@@ -273,7 +273,7 @@
   </div>
 
   <script>
-    const TOKEN = 'antigravity2026secret';
+    const tok = () => document.getElementById('token').value;
     const API = 'http://212.85.15.234:3001';
 
     // ── Estado por agente ──────────────────────────────
@@ -465,7 +465,7 @@
 
         const response = await fetch(`${API}/chat`, {
           method: 'POST',
-          headers: { 'Content-Type': 'application/json', 'X-Secret': TOKEN },
+          headers: { 'Content-Type': 'application/json', 'X-Secret': tok() },
           body: JSON.stringify(body)
         });
 
@@ -512,7 +512,7 @@
 
     async function cargarMisiones() {
       try {
-        const response = await fetch(`${API}/jobs`, { headers: { 'X-Secret': TOKEN } });
+        const response = await fetch(`${API}/jobs`, { headers: { 'X-Secret': tok() } });
         const data = await response.json();
         if (Array.isArray(data) && data.length > 0) {
           const log = document.getElementById('missionsLog');

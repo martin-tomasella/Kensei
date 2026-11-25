@@ -10,7 +10,8 @@ const app = express();
 app.use(express.json({ limit: '50mb' }));
 app.use(express.static('public'));
 
-const WEBHOOK_SECRET = process.env.WEBHOOK_SECRET || 'antigravity2026secret';
+const WEBHOOK_SECRET = process.env.WEBHOOK_SECRET;
+if (!WEBHOOK_SECRET) throw new Error('Falta WEBHOOK_SECRET en el entorno -- no hay fallback por seguridad.');
 const PROJECTS_PATH = path.join(__dirname, 'projects');
 const PORT = process.env.PORT || 3001;
 const cola = new Map();

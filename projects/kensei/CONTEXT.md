@@ -17,7 +17,7 @@ Martín Tomasella — CEO. Alfred (agente personal): app Android React Native + 
 - VPS: 212.85.15.234 · Ubuntu 24.04 · 96GB disco
 - Orquestador: /home/agentes/ · Puerto 3001 · Node.js + Express + PM2
 - Dashboard: http://212.85.15.234:3001/kensei-dashboard.html
-- Auth: X-Secret: antigravity2026secret
+- Auth: header X-Secret (valor en WEBHOOK_SECRET del entorno)
 - n8n: https://n8n-n8n.z8ixjp.easypanel.host
 - Anthropic key activa: Orquestador-Kensei
 
@@ -120,13 +120,13 @@ Completadas 3 subtareas. Agentes: frontend, qa, reviewer.
 
 
 <!-- ACTUALIZACIÓN 2026-06-07 -->
-## Sesión 2026-06-07 — "Agregar en /home/agentes/public/kensei-dashboard.html un boton + Nuevo Proyecto debajo de la lista de proyectos en el sidebar. Al clickear abre un modal con campos: Nombre, Descripcion, Stack. Boton Crear hace POST a /proyecto/nuevo con {nombre, descripcion, stack} y header X-Secret con valor antigravity2026secret. Si respuesta ok agrega el proyecto al sidebar y cierra el modal. Mantener todo el resto del dashboard exactamente igual. Escribir el archivo completo con formato ARCHIVO:/home/agentes/public/kensei-dashboard.html FIN_ARCHIVO."
+## Sesión 2026-06-07 — "Agregar en /home/agentes/public/kensei-dashboard.html un boton + Nuevo Proyecto debajo de la lista de proyectos en el sidebar. Al clickear abre un modal con campos: Nombre, Descripcion, Stack. Boton Crear hace POST a /proyecto/nuevo con {nombre, descripcion, stack} y header X-Secret. Si respuesta ok agrega el proyecto al sidebar y cierra el modal. Mantener todo el resto del dashboard exactamente igual. Escribir el archivo completo con formato ARCHIVO:/home/agentes/public/kensei-dashboard.html FIN_ARCHIVO."
 Completadas 3 subtareas. Agentes: frontend, qa, reviewer.
 <!-- FIN ACTUALIZACIÓN -->
 
 
 <!-- ACTUALIZACIÓN 2026-06-07 -->
-## Sesión 2026-06-07 — "Modificar /home/agentes/public/kensei-dashboard.html con estos 3 cambios: 1) Agregar debajo del Registro de Misiones un formulario de Nueva Mision con: select de proyecto (zebrano,theron,vetcom,inteltech,kensei), input password para token con valor por defecto antigravity2026secret, textarea para descripcion de la tarea, y boton Ejecutar Mision que hace POST /tarea con {proyecto, tarea: descripcion} y header X-Secret. 2) Las tarjetas de servicios (n8n, Supabase Zebrano, Supabase Alfred, Vercel, Anthropic, TikTok) deben estar todas en una sola fila horizontal. 3) Los agentes del sidebar (PL, BE, FE, QA, RV) deben estar en una sola fila horizontal compacta. Mantener todo lo demas igual. Usar formato ARCHIVO:/home/agentes/public/kensei-dashboard.html FIN_ARCHIVO."
+## Sesión 2026-06-07 — "Modificar /home/agentes/public/kensei-dashboard.html con estos 3 cambios: 1) Agregar debajo del Registro de Misiones un formulario de Nueva Mision con: select de proyecto (zebrano,theron,vetcom,inteltech,kensei), input password para token sin valor por defecto, textarea para descripcion de la tarea, y boton Ejecutar Mision que hace POST /tarea con {proyecto, tarea: descripcion} y header X-Secret. 2) Las tarjetas de servicios (n8n, Supabase Zebrano, Supabase Alfred, Vercel, Anthropic, TikTok) deben estar todas en una sola fila horizontal. 3) Los agentes del sidebar (PL, BE, FE, QA, RV) deben estar en una sola fila horizontal compacta. Mantener todo lo demas igual. Usar formato ARCHIVO:/home/agentes/public/kensei-dashboard.html FIN_ARCHIVO."
 Completadas 3 subtareas. Agentes: frontend, qa, reviewer.
 <!-- FIN ACTUALIZACIÓN -->
 

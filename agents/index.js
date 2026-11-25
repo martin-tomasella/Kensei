@@ -27,7 +27,7 @@ Martín Tomasella — CEO. Alfred (agente personal): app Android React Native + 
 - VPS: 212.85.15.234 · Ubuntu 24.04 · 96GB disco
 - Orquestador: /home/agentes/ · Puerto 3001 · Node.js + Express + PM2
 - Dashboard: http://212.85.15.234:3001/kensei-dashboard.html
-- Auth: X-Secret: antigravity2026secret
+- Auth: header X-Secret (valor en WEBHOOK_SECRET del entorno)
 - n8n: https://n8n-n8n.z8ixjp.easypanel.host
 - Anthropic key activa: Orquestador-Kensei
 
@@ -85,7 +85,7 @@ Martín Tomasella — CEO. Alfred (agente personal): app Android React Native + 
 - VPS: 212.85.15.234 · Ubuntu 24.04 · 96GB disco
 - Orquestador: /home/agentes/ · Puerto 3001 · Node.js + Express + PM2
 - Dashboard: http://212.85.15.234:3001/kensei-dashboard.html
-- Auth: X-Secret: antigravity2026secret
+- Auth: header X-Secret (valor en WEBHOOK_SECRET del entorno)
 - n8n: https://n8n-n8n.z8ixjp.easypanel.host
 - Anthropic key activa: Orquestador-Kensei
 

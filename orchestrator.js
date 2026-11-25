@@ -9,10 +9,10 @@ app.use(express.json());
 app.use(express.static('public'));
 
 const client = new Anthropic({
-  apiKey: process.env.ANTHROPIC_API_KEY || 'sk-ant-api03-qjqiYDkGPTZZxUuZ-9J_q59KU6Wz7LlcgVYi-LVvlYwxN8k3xHd2VllvUd1J9SGYMCdUbFO1uOPvQUqZ0Gc5FQ-OZ7hNgAA'
+  apiKey: process.env.ANTHROPIC_API_KEY
 });
 
-const SECRET = 'antigravity2026secret';
+const SECRET = process.env.WEBHOOK_SECRET;
 const jobs = new Map();
 let jobCounter = 0;
 
