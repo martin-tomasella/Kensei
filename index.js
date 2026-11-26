@@ -41,12 +41,13 @@ const EMPRESAS = [
 { id: 'inteltech', nombre: 'Inteltech', descripcion: 'IoT y gestion vehicular', color: '#f59e0b' },
 { id: 'zebrano', nombre: 'Zebrano', descripcion: 'ERP carpinteria', color: '#8F2FFE' },
 { id: 'kensei', nombre: 'Kensei', descripcion: 'I+D e Inteligencia Artificial', color: '#080c10' },
+{ id: 'microapps', nombre: 'Micro Apps', descripcion: 'Micro apps de pago por uso', color: '#14b8a6' },
 ];
 
 app.post('/tarea', autenticar, async (req, res) => {
 const { proyecto, tarea, descripcion } = req.body;
 const tareaFinal = tarea || descripcion;
-const proyectosValidos = ['zebrano', 'theron', 'vetcom', 'inteltech', 'kensei'];
+const proyectosValidos = ['zebrano', 'theron', 'vetcom', 'inteltech', 'kensei', 'microapps'];
 if (!proyecto || !tareaFinal) return res.status(400).json({ error: 'Faltan parametros: proyecto, tarea' });
 if (!proyectosValidos.includes(proyecto.toLowerCase())) return res.status(400).json({ error: `Proyecto no valido. Opciones: ${proyectosValidos.join(', ')}` });
 const jobId = uuidv4();
